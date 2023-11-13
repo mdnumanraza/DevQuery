@@ -2,6 +2,10 @@
 
 This website is a question forum and made to look like Stack Overflow.
 
+## live preview
+
+- https://stack-overflow-clone-frontend-pi.vercel.app/
+
 ## Technologies used:
 
 - React js
@@ -10,4 +14,5 @@ This website is a question forum and made to look like Stack Overflow.
 - MongoDb
 - Redux
 - Json web token and more
+
 

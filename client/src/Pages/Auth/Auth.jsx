@@ -11,6 +11,7 @@ const Auth = () => {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [error, setError] = useState("");
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -31,9 +32,9 @@ const Auth = () => {
       if (!name) {
         alert("Enter a name to continue");
       }
-      dispatch(signup({ name, email, password }, navigate));
+      dispatch(signup({ name, email, password }, navigate,setError));
     } else {
-      dispatch(login({ email, password }, navigate));
+      dispatch(login({ email, password }, navigate,setError));
     }
   };
 
@@ -103,6 +104,10 @@ const Auth = () => {
           </button>
         </p>
       </div>
+          {
+            error &&
+            <p style={{padding:"15px",color:"red",background:"gray",fontWeight:"500"}}>  {error}</p>
+          }
     </section>
   );
 };
