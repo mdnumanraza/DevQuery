@@ -66,7 +66,7 @@ const Navbar = ({ handleSlideIn }) => {
               <Avatar
                 backgroundColor="#009dff"
                 px="10px"
-                py="7px"
+                py="6px"
                 borderRadius="50%"
                 color="white"
               >

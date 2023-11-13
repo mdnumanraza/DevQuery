@@ -8,6 +8,7 @@
 .widget {
   margin-top: 10px;
   box-shadow: 3px 3px 10px rgb(0 0 0 / 5%), -3px -3px 10px rgb(0 0 0 / 5%);
+  
 }
 
 .widget h4 {
@@ -16,12 +17,14 @@
   padding: 15px;
   border: solid 1px #f1e5bc;
   font-size: 13px;
+  margin-top: 10px;
 }
 
 .right-sidebar-div-1 {
   background-color: #fdf7e2;
   padding: 15px;
   border: solid 1px #f1e5bc;
+  margin-top: 3px;
 }
 
 .right-sidebar-div-1 .right-sidebar-div-2 {

@@ -41,6 +41,7 @@
 .navbar .navbar-2 {
   display: flex;
   align-items: center;
+  margin-left: 14px;
 }
 
 .nav-logo {
@@ -48,7 +49,7 @@
 }
 
 .nav-item {
-  margin: 0px 3px;
+  margin: 0px 27px;
   font-size: small;
   font-weight: 500;
   text-decoration: none;
@@ -115,5 +116,25 @@
 @media screen and (max-width: 620px) {
   .navbar .navbar-1 .res-nav {
     display: none;
+  }
+  .navbar-2{
+    width: fit-content;
+    margin-left: 20px;
+  }
+  .navbar-2 button{
+    margin-top: 0;
+    margin-bottom: 0;
+    margin-right: 3px;
+    margin-left: 7px;
+    background-color: rgba(255, 55, 55, 0.952);
+    padding: 5px;
+    font-size: 1rem;
+    font-weight: 600;
+  }
+  .navbar-1 .nav-item{
+    margin: 0;
+    padding-left: 5px;
+    padding-right: 1px;
+    margin-left: 5px;
   }
 }
