@@ -25,7 +25,11 @@ const UserProfile = ({ slideIn, handleSlideIn }) => {
         <section>
           <div className="user-details-container">
             <div className="user-details">
-              <Avatar
+
+              {currentProfile?.pic? 
+              <img src={currentProfile?.pic} alt="userprofile"  height='70px' style={{borderRadius:'5px'}} />
+              :
+                <Avatar
                 backgroundColor="purple"
                 color="white"
                 fontSize="50px"
@@ -33,7 +37,7 @@ const UserProfile = ({ slideIn, handleSlideIn }) => {
                 py="30px"
               >
                 {currentProfile?.name.charAt(0).toUpperCase()}
-              </Avatar>
+              </Avatar>}
               <div className="user-name">
                 <h1>{currentProfile?.name}</h1>
                 <p>

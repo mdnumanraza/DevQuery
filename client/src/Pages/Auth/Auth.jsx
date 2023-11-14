@@ -1,17 +1,20 @@
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
-
+import firebase from 'firebase/compat/app'
+import 'firebase/compat/storage'
 import "./Auth.css";
 import icon from "../../assets/icon.png";
 import AboutAuth from "./AboutAuth";
 import { signup, login } from "../../actions/auth";
 const Auth = () => {
+  const loadicon = 'https://www.superiorlawncareusa.com/wp-content/uploads/2020/05/loading-gif-png-5.gif'
   const [isSignup, setIsSignup] = useState(false);
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
+  const [load, setLoad] = useState(false);
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -23,6 +26,32 @@ const Auth = () => {
     setPassword("");
   };
 
+  const [pic, setPic]= useState('');
+  const handleupload = async(e)=>{
+    setLoad(true);
+    const selectedFile = e.target.files[0];
+    if(selectedFile){
+      const storageRef =  firebase.storage().ref()
+      const fileRef = storageRef.child(selectedFile.name)
+      await fileRef.put(selectedFile)
+      .then((snapshot)=>{
+        snapshot.ref.getDownloadURL()
+        .then((downloadURL)=>{
+          console.log(downloadURL);
+          setPic(downloadURL );
+          setLoad(false);
+          
+        })
+      })
+    }else{
+      console.log("Please select image to upload")
+      setLoad(false);
+    }
+ }
+  
+
+
+
   const handleSubmit = (e) => {
     e.preventDefault();
     if (!email && !password) {
@@ -32,7 +61,7 @@ const Auth = () => {
       if (!name) {
         alert("Enter a name to continue");
       }
-      dispatch(signup({ name, email, password }, navigate,setError));
+      dispatch(signup({ name, email, password,pic }, navigate,setError));
     } else {
       dispatch(login({ email, password }, navigate,setError));
     }
@@ -89,9 +118,27 @@ const Auth = () => {
               }}
             />
           </label>
-          <button type="submit" className="auth-btn">
+
+          {
+            isSignup &&
+            <label htmlFor="profile">
+            Add Pofile Image: <br />
+            {pic && <img className='uploadimg' src={pic} alt="upload image" width='40px' />}
+            <input
+              type="file"
+              name="pic"  
+              id="profile"
+              onChange={handleupload}
+            />
+          </label>
+          }
+
+
+         {load===true?
+            <img src={loadicon} alt="loading" width='50px' />:
+         <button type="submit" className="auth-btn">
             {isSignup ? "Sign up" : "Log in"}
-          </button>
+          </button>}
         </form>
         <p>
           {isSignup ? "Already have an account?" : "Don't have an account?"}

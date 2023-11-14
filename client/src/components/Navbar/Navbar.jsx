@@ -63,6 +63,9 @@ const Navbar = ({ handleSlideIn }) => {
             </Link>
           ) : (
             <>
+             {User.result.pic? 
+              <img src={User.result.pic} alt="" width='30px' height='30px' style={{borderRadius:'50%'}} />
+              :
               <Avatar
                 backgroundColor="#009dff"
                 px="10px"
@@ -76,7 +79,7 @@ const Navbar = ({ handleSlideIn }) => {
                 >
                   {User.result.name.charAt(0).toUpperCase()}
                 </Link>
-              </Avatar>
+              </Avatar>}
               <button className="nav-item nav-links" onClick={handleLogout}>
                 Log out
               </button>

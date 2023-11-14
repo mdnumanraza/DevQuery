@@ -25,6 +25,7 @@ const AskQuestion = () => {
               questionBody,
               questionTags,
               userPosted: User.result.name,
+              userPic: User.result.pic,
             },
             navigate
           )

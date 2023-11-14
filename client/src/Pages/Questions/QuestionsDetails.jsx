@@ -41,6 +41,7 @@ const QuestionsDetails = () => {
             noOfAnswers: answerLength + 1,
             answerBody: Answer,
             userAnswered: User.result.name,
+            userPic: User.result.pic,
           })
         );
         setAnswer("");
@@ -130,14 +131,17 @@ const QuestionsDetails = () => {
                             className="user-link"
                             style={{ color: "#0086d8" }}
                           >
-                            <Avatar
+                            {question.userPic? 
+                              <img src={question.userPic} alt="" width='30px' height='30px' style={{borderRadius:'50%'}} />
+                              :
+                              <Avatar
                               backgroundColor="orange"
                               px="8px"
                               py="5px"
                               borderRadius="4px"
                             >
                               {question.userPosted.charAt(0).toUpperCase()}
-                            </Avatar>
+                            </Avatar>}
                             <div>{question.userPosted}</div>
                           </Link>
                         </div>

@@ -17,6 +17,9 @@ const userSchema = mongoose.Schema({
   about: { 
     type: String 
   },
+  pic: { 
+    type: String 
+  },
   tags: { 
     type: [String] 
   },

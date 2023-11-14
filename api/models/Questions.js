@@ -29,6 +29,9 @@ const QuestionSchema = mongoose.Schema({
     type: String, 
     required: "Question must have an author" 
   },
+  userPic: { 
+    type: String, 
+  },
   userId: { 
     type: String 
   },
@@ -41,6 +44,7 @@ const QuestionSchema = mongoose.Schema({
       answerBody: String,
       userAnswered: String,
       userId: String,
+      userPic:String,
       answeredOn: { 
         type: Date, 
         default: Date.now 

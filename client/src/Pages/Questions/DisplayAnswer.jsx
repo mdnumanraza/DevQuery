@@ -39,6 +39,9 @@ const DisplayAnswer = ({ question, handleShare }) => {
                 className="user-link"
                 style={{ color: "#0086d8" }}
               >
+               {ans.userPic?  
+               <img src={ans.userPic} alt="" width='30px' height='30px' style={{borderRadius:'50%'}} />
+                 :
                 <Avatar
                   backgroundColor="lightgreen"
                   px="8px"
@@ -46,7 +49,7 @@ const DisplayAnswer = ({ question, handleShare }) => {
                   borderRadius="4px"
                 >
                   {ans.userAnswered.charAt(0).toUpperCase()}
-                </Avatar>
+                </Avatar>}
                 <div>{ans.userAnswered}</div>
               </Link>
             </div>
