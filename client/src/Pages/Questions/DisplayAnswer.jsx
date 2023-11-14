@@ -13,6 +13,7 @@ const DisplayAnswer = ({ question, handleShare }) => {
   const handleDelete = (answerId, noOfAnswers) => {
     dispatch(deleteAnswer(id, answerId, noOfAnswers - 1));
   };
+  
   return (
     <div>
       {question.answer.map((ans) => (

@@ -24,10 +24,13 @@ const QuestionsDetails = () => {
   const dispatch = useDispatch();
   const User = useSelector((state) => state.currentUserReducer);
   const location = useLocation();
-  const url = "http://localhost:3000";
+  const url = "https://stack-overflow-clone-tau.vercel.app";
+
+  // console.log(User)
 
   const handlePostAns = (e, answerLength) => {
     e.preventDefault();
+
     if (User === null) {
       alert("Login or Signup to answer a question");
       Navigate("/Auth");
@@ -44,6 +47,7 @@ const QuestionsDetails = () => {
             userPic: User.result.pic,
           })
         );
+        console.log(User.result.pic)
         setAnswer("");
       }
     }

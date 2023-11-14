@@ -9,14 +9,26 @@ const AskQuestion = () => {
   const [questionTitle, setQuestionTitle] = useState("");
   const [questionBody, setQuestionBody] = useState("");
   const [questionTags, setQuestionTags] = useState("");
+  const [userPic, setUserPic] = useState("")
+  const [user, setUser] = useState("")
+  const [flag, setFlag] = useState(true)
 
   const dispatch = useDispatch();
   const User = useSelector((state) => state.currentUserReducer);
+ 
   const navigate = useNavigate();
+  console.log(User)
 
+  if(User&& flag){
+    setUserPic(User.result.pic)
+    setUser(User.result.name)
+    setFlag(false)
+  }
+  
   const handleSubmit = (e) => {
     e.preventDefault();
     if (User) {
+    
       if (questionTitle && questionBody && questionTags) {
         dispatch(
           askQuestion(
@@ -39,6 +51,7 @@ const AskQuestion = () => {
       setQuestionBody(questionBody + "\n");
     }
   };
+
   return (
     <div className="ask-question">
       <div className="ask-ques-container">

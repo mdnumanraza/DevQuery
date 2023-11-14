@@ -4,8 +4,8 @@ import mongoose from "mongoose";
 export const AskQuestion = async (req, res) => {
   const postQuestionData = req.body;
   const userId = req.userId;
-  const userPic = req.userPic;
-  const postQuestion = new Questions({ ...postQuestionData, userPic });
+  const userPic = req.body.userPic;
+  const postQuestion = new Questions({ ...postQuestionData,userId, userPic });
   try {
     await postQuestion.save();
     res.status(200).json("Posted a question successfully");
