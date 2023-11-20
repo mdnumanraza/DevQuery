@@ -55,6 +55,8 @@ const QuestionsDetails = () => {
         );
         console.log(User.result.pic)
         setAnswer("");
+        setAnsImg('')
+        setAnsVid('')
       }
     }
   };
