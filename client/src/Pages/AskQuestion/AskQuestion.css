@@ -53,3 +53,56 @@
 .review-btn:hover {
   background-color: #0086d8;
 }
+
+.format-btns button{
+  background: none;
+  padding: 3px;
+  outline: none;
+  border: none;
+  border-left: 1px solid gray;
+  width: 20px;
+}
+
+.format-btns{
+  display: flex;
+  gap: 10px;
+  background: rgba(167, 166, 166, 0.842);
+}
+
+#ask-ques-body:focus{
+  outline: none;
+}
+
+
+@media screen and (max-width: 820px) {
+  
+  .format-btns{
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    background: none;
+    padding: 0;
+    gap: 0;
+    
+  }
+  
+  .format-btns button{
+    margin-top: 2px;
+    border-bottom: 1px solid gray;
+    background: rgba(167, 166, 166, 0.842);
+    width: fit-content;
+   
+  }
+ 
+}
+
+.pd{
+  display: flex;
+  flex-direction: column;
+  cursor: pointer;
+}
+
+.pd h4{
+  padding: 0;
+  margin: 1px;
+}

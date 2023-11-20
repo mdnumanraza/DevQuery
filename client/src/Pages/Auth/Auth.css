@@ -92,4 +92,58 @@
   .auth-container-1 {
     display: none;
   }
+  
+ 
 }
+
+
+
+input[type="file"]{
+  display: none;
+}
+
+.pic-svg{
+  padding: 10px;
+}
+
+.uploadimg{
+  padding: 5px;
+}
+
+.profilediv{
+  display: flex;
+  flex-direction: column;
+}
+
+.pd{
+  display: flex;
+  flex-direction: row;
+}
+
+.x-mark{
+  position: relative;
+  display: flex;
+  left: 18%;
+    /* top: 45%; */
+    background: none;
+    border: none;
+    padding: 0;
+}
+.picDiv{
+  padding: 0;
+  margin: 0;
+  position: relative;
+}
+
+.dlt-btn{
+  border: none;
+  outline: none;
+  cursor: pointer;
+  background: none;
+}
+
+.pic-img{
+  width: 70px;
+  margin-top: 20px;
+}
+

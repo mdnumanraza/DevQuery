@@ -18,7 +18,18 @@ const DisplayAnswer = ({ question, handleShare }) => {
     <div>
       {question.answer.map((ans) => (
         <div className="display-ans" key={ans._id}>
-          <p>{ans.answerBody}</p>
+
+          <p className="question-body" dangerouslySetInnerHTML={{__html: ans.answerBody}}></p>
+
+          <div className="q-media">
+            {ans.ansImg &&
+              <img src={ans.ansImg} width="200px" alt="" />
+            }
+            {ans.ansVid &&
+              <video controls src={ans.ansVid} width="500px" />
+            }
+          </div>
+          
           <div className="question-actions-user">
             <div>
               <button type="button" onClick={handleShare}>

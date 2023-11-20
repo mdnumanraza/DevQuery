@@ -129,3 +129,17 @@
     width: calc(100% - 24px);
   }
 }
+
+.q-media{
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.q-media img{
+  width: 400px;
+}
+
+.q-media video{
+  width: 400px;
+}

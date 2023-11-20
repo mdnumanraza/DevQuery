@@ -9,6 +9,12 @@ const QuestionSchema = mongoose.Schema({
     type: String, 
     required: "Question must have a body" 
   },
+  questionImg: { 
+    type: String
+  },
+  questionVid: { 
+    type: String
+  },
   questionTags: { 
     type: [String], 
     required: "Question must have a tags" 
@@ -42,6 +48,8 @@ const QuestionSchema = mongoose.Schema({
   answer: [
     {
       answerBody: String,
+      ansImg:String,
+      ansVid:String,
       userAnswered: String,
       userId: String,
       userPic: String,

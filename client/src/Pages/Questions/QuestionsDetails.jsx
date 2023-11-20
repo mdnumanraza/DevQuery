@@ -14,12 +14,15 @@ import {
   deleteQuestion,
   voteQuestion,
 } from "../../actions/question";
+import TextEditor from "../AskQuestion/RichTextEditor/TextEditor";
 
 const QuestionsDetails = () => {
   const { id } = useParams();
   const questionsList = useSelector((state) => state.questionsReducer);
 
   const [Answer, setAnswer] = useState("");
+  const [ansImg, setAnsImg] = useState("");
+  const [ansVid, setAnsVid] = useState("");
   const Navigate = useNavigate();
   const dispatch = useDispatch();
   const User = useSelector((state) => state.currentUserReducer);
@@ -43,7 +46,10 @@ const QuestionsDetails = () => {
             id,
             noOfAnswers: answerLength + 1,
             answerBody: Answer,
+            ansImg,
+            ansVid,
             userAnswered: User.result.name,
+            userId:User.result._id,
             userPic: User.result.pic,
           })
         );
@@ -111,11 +117,19 @@ const QuestionsDetails = () => {
                       />
                     </div>
                     <div style={{ width: "100%" }}>
-                      <p className="question-body">{question.questionBody}</p>
+                      <p className="question-body" dangerouslySetInnerHTML={{__html: question.questionBody}}></p>
                       <div className="question-details-tags">
                         {question.questionTags.map((tag) => (
                           <p key={tag}>{tag}</p>
                         ))}
+                      </div>
+                      <div className="q-media">
+                        { question.questionImg &&
+                          <img src={question.questionImg} width="200px" alt="" />
+                        }
+                        { question.questionVid &&
+                          <video controls src={question.questionVid} width="600px" />
+                        }
                       </div>
                       <div className="question-actions-user">
                         <div>
@@ -165,19 +179,20 @@ const QuestionsDetails = () => {
                 )}
                 <section className="post-ans-container">
                   <h3>Your Answer</h3>
-                  <form
+                  <form style={{width:"100%"}}
                     onSubmit={(e) => {
                       handlePostAns(e, question.answer.length);
                     }}
                   >
-                    <textarea
-                      name=""
-                      id=""
-                      cols="30"
-                      rows="10"
-                      value={Answer}
-                      onChange={(e) => setAnswer(e.target.value)}
-                    ></textarea>
+                    
+                    <TextEditor
+                      setQuestionBody={setAnswer}
+                      questionImg={ansImg} 
+                      setQuestionImg={setAnsImg}
+                      questionVid={ansVid} 
+                      setQuestionVid={setAnsVid}
+                    />
+
                     <br />
                     <input
                       type="submit"

@@ -4,10 +4,13 @@ import { useNavigate } from "react-router-dom";
 
 import "./AskQuestion.css";
 import { askQuestion } from "../../actions/question";
+import TextEditor from "./RichTextEditor/TextEditor";
 
 const AskQuestion = () => {
   const [questionTitle, setQuestionTitle] = useState("");
   const [questionBody, setQuestionBody] = useState("");
+  const [questionImg, setQuestionImg] = useState("");
+  const [questionVid, setQuestionVid] = useState("");
   const [questionTags, setQuestionTags] = useState("");
   const [userPic, setUserPic] = useState("")
   const [user, setUser] = useState("")
@@ -17,7 +20,7 @@ const AskQuestion = () => {
   const User = useSelector((state) => state.currentUserReducer);
  
   const navigate = useNavigate();
-  console.log(User)
+
 
   if(User&& flag){
     setUserPic(User.result.pic)
@@ -26,7 +29,9 @@ const AskQuestion = () => {
   }
   
   const handleSubmit = (e) => {
+
     e.preventDefault();
+    console.log(questionBody)
     if (User) {
     
       if (questionTitle && questionBody && questionTags) {
@@ -35,6 +40,8 @@ const AskQuestion = () => {
             {
               questionTitle,
               questionBody,
+              questionImg,
+              questionVid,
               questionTags,
               userPosted: User.result.name,
               userPic: User.result.pic,
@@ -79,16 +86,13 @@ const AskQuestion = () => {
                 Include all the information someone would need to answer your
                 question
               </p>
-              <textarea
-                name=""
-                id="ask-ques-body"
-                onChange={(e) => {
-                  setQuestionBody(e.target.value);
-                }}
-                cols="30"
-                rows="10"
-                onKeyPress={handleEnter}
-              ></textarea>
+              <TextEditor 
+              setQuestionBody={setQuestionBody}
+              questionImg={questionImg} 
+              setQuestionImg={setQuestionImg}
+              questionVid={questionVid} 
+              setQuestionVid={setQuestionVid}
+              />
             </label>
             <label htmlFor="ask-ques-tags">
               <h4>Tags</h4>
@@ -99,15 +103,17 @@ const AskQuestion = () => {
                 onChange={(e) => {
                   setQuestionTags(e.target.value.split(" "));
                 }}
-                placeholder="e.g. (xml typescript wordpress)"
+                placeholder="e.g. (javaScript HTML C++)"
               />
             </label>
           </div>
-          <input
+          <button
+            
             type="submit"
-            value="Reivew your question"
             className="review-btn"
-          />
+          >
+            Reivew your question
+          </button>
         </form>
       </div>
     </div>
