@@ -11,7 +11,7 @@ export const signup = (authData, navigate,setError) => async (dispatch) => {
     navigate("/");
   } catch (error) {
    
-    console.log(error);
+    console.log(error.message);
     alert("Please enter valid Details")
     navigate("/auth")
   }
