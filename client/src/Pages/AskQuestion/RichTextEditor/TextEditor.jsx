@@ -7,12 +7,16 @@ import addvid from '../../../assets/addvid.png'
 import firebase from 'firebase/compat/app'
 import 'firebase/compat/storage'
 import { getStorage, ref, deleteObject } from "firebase/storage";
+import CodeInput from './CodeInput';
 
 const TextEditor = ({ setQuestionBody, 
                       questionImg, 
                       setQuestionImg ,
                       questionVid, 
-                      setQuestionVid 
+                      setQuestionVid,
+                      quesCode,
+                      setQuesCode ,
+                      setAnsCode
 }) => {
   const loadicon = 'https://www.superiorlawncareusa.com/wp-content/uploads/2020/05/loading-gif-png-5.gif'
   const [content, setContent] = useState('');
@@ -20,9 +24,11 @@ const TextEditor = ({ setQuestionBody,
   const [bold, setBold] = useState(false);
   const [italic, setItalic] = useState(false);
   const [underline, setUnderline] = useState(false);
+
   const [save, setSave] = useState(true);
   const [picDiv, setPicDiv] = useState(false);
   const [vidDiv, setVidDiv] = useState(false);
+  const [codeDiv,setCodeDiv] = useState(false);
   const [load, setLoad] = useState(false);
 
 
@@ -298,6 +304,7 @@ const TextEditor = ({ setQuestionBody,
         onClick={
           () =>{
             setPicDiv(!picDiv)
+            setCodeDiv(false)
             setVidDiv(false)
           }
         }
@@ -312,11 +319,25 @@ const TextEditor = ({ setQuestionBody,
         onClick={
           () =>{
             setPicDiv(false)
+            setCodeDiv(false)
             setVidDiv(!vidDiv)
           }
         }
         >             
         <svg xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 -960 960 960" width="24"><path d="M360-320h80v-120h120v-80H440v-120h-80v120H240v80h120v120ZM160-160q-33 0-56.5-23.5T80-240v-480q0-33 23.5-56.5T160-800h480q33 0 56.5 23.5T720-720v180l160-160v440L720-420v180q0 33-23.5 56.5T640-160H160Zm0-80h480v-480H160v480Zm0 0v-480 480Z"/></svg>
+      </button>
+
+      {/* code button  */}
+      <button
+        type='button'
+        style={{cursor: 'pointer' }}
+        onClick={() => {
+          setPicDiv(false)
+          setVidDiv(false)
+          setCodeDiv(!codeDiv)
+        }}
+        >             
+        <svg xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 -960 960 960" width="24"><path d="M320-240 80-480l240-240 57 57-184 184 183 183-56 56Zm320 0-57-57 184-184-183-183 56-56 240 240-240 240Z"/></svg>
       </button>
 
     </div>
@@ -370,6 +391,13 @@ const TextEditor = ({ setQuestionBody,
         />
         </label>
     </div>
+  }
+
+  { codeDiv && 
+    <div className="">
+      <CodeInput Code={quesCode} setCode={setQuesCode}  setCodeDiv={setCodeDiv}/>
+    </div>
+
   }
 
       {/* editor */}

@@ -106,3 +106,69 @@
   padding: 0;
   margin: 1px;
 }
+
+/* CodeInput.css */
+
+
+.code-input {
+  width: 90%;
+  height: 100px;
+  font-family: 'Courier New', Courier, monospace;
+  font-size: 14px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  padding: 10px;
+}
+
+.code-input-container{
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+
+.code-btns{
+  margin-top: 5px;
+  display: flex;
+  gap: 10px;
+  align-items: center;
+}
+
+button{
+  cursor: pointer;
+}
+
+.code-btns button{
+  padding: 7px;
+  background-color: #e7f8fe;
+  font-weight: 500;
+  border: none;
+  border: 1px solid gray;
+  border-radius: 5px;
+}
+
+.code-btns button:hover{
+  background-color: #0086d8;
+}
+
+.code-btns p{
+  color: #0086d8;
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+.code-btns p:hover{
+  color: #009dff;
+  text-decoration: dotted;
+}
+
+.code-mode{
+  padding: 7px;
+  margin: 0;
+  position: relative;
+  text-align: center;
+  background-color: #ccc;
+  width: 35px;
+  display: flex;
+  left: 90%;
+  cursor: pointer;
+  border-radius: 5px;
+}

@@ -10,8 +10,10 @@ export const signup = (authData, navigate,setError) => async (dispatch) => {
     dispatch(fetchAllUsers());
     navigate("/");
   } catch (error) {
-    setError(error)
+   
     console.log(error);
+    alert("Please enter valid Details")
+    navigate("/auth")
   }
 };
 
@@ -22,7 +24,9 @@ export const login = (authData, navigate,setError) => async (dispatch) => {
     dispatch(setCurrentUser(JSON.parse(localStorage.getItem("Profile"))));
     navigate("/");
   } catch (error) {
-    setError(error)
-    console.log(error);
+   
+    console.log(error.message);
+    alert("Please enter valid Details")
+    navigate("/auth")
   }
 };

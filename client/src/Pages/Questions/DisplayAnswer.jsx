@@ -5,6 +5,7 @@ import { useSelector, useDispatch } from "react-redux";
 
 import Avatar from "../../components/Avatar/Avatar";
 import { deleteAnswer } from "../../actions/question";
+import CodeDisplay from "../AskQuestion/RichTextEditor/CodeDisplay";
 
 const DisplayAnswer = ({ question, handleShare }) => {
   const User = useSelector((state) => state.currentUserReducer);
@@ -27,6 +28,11 @@ const DisplayAnswer = ({ question, handleShare }) => {
             }
             {ans.ansVid &&
               <video controls src={ans.ansVid} width="500px" />
+            }
+            {ans.ansCode &&
+              
+                <CodeDisplay code={ans.ansCode}/>
+             
             }
           </div>
           

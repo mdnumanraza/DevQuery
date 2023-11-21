@@ -9,6 +9,7 @@ import TextEditor from "./RichTextEditor/TextEditor";
 const AskQuestion = () => {
   const [questionTitle, setQuestionTitle] = useState("");
   const [questionBody, setQuestionBody] = useState("");
+  const [quesCode, setQuesCode] = useState("");
   const [questionImg, setQuestionImg] = useState("");
   const [questionVid, setQuestionVid] = useState("");
   const [questionTags, setQuestionTags] = useState("");
@@ -40,6 +41,7 @@ const AskQuestion = () => {
             {
               questionTitle,
               questionBody,
+              quesCode,
               questionImg,
               questionVid,
               questionTags,
@@ -92,6 +94,8 @@ const AskQuestion = () => {
               setQuestionImg={setQuestionImg}
               questionVid={questionVid} 
               setQuestionVid={setQuestionVid}
+              quesCode={quesCode}
+              setQuesCode={setQuesCode}
               />
             </label>
             <label htmlFor="ask-ques-tags">

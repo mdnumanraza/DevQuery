@@ -15,6 +15,9 @@ const QuestionSchema = mongoose.Schema({
   questionVid: { 
     type: String
   },
+  quesCode: { 
+    type: String
+  },
   questionTags: { 
     type: [String], 
     required: "Question must have a tags" 
@@ -50,6 +53,7 @@ const QuestionSchema = mongoose.Schema({
       answerBody: String,
       ansImg:String,
       ansVid:String,
+      ansCode:String,
       userAnswered: String,
       userId: String,
       userPic: String,

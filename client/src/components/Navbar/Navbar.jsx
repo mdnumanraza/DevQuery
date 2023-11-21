@@ -64,7 +64,12 @@ const Navbar = ({ handleSlideIn }) => {
           ) : (
             <>
              {User.result.pic? 
+             <Link
+             to={`/Users/${User?.result?._id}`}
+             style={{ color: "white", textDecoration: "none" }}
+           >
               <img src={User.result.pic} alt="" width='30px' height='30px' style={{borderRadius:'50%'}} />
+              </Link>
               :
               <Avatar
                 backgroundColor="#009dff"

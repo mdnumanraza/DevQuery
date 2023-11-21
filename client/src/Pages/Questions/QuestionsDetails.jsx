@@ -15,6 +15,7 @@ import {
   voteQuestion,
 } from "../../actions/question";
 import TextEditor from "../AskQuestion/RichTextEditor/TextEditor";
+import CodeDisplay from "../AskQuestion/RichTextEditor/CodeDisplay";
 
 const QuestionsDetails = () => {
   const { id } = useParams();
@@ -23,6 +24,7 @@ const QuestionsDetails = () => {
   const [Answer, setAnswer] = useState("");
   const [ansImg, setAnsImg] = useState("");
   const [ansVid, setAnsVid] = useState("");
+  const [ansCode, setAnsCode] = useState("");
   const Navigate = useNavigate();
   const dispatch = useDispatch();
   const User = useSelector((state) => state.currentUserReducer);
@@ -48,12 +50,12 @@ const QuestionsDetails = () => {
             answerBody: Answer,
             ansImg,
             ansVid,
+            ansCode,
             userAnswered: User.result.name,
             userId:User.result._id,
             userPic: User.result.pic,
           })
         );
-        console.log(User.result.pic)
         setAnswer("");
         setAnsImg('')
         setAnsVid('')
@@ -132,6 +134,9 @@ const QuestionsDetails = () => {
                         { question.questionVid &&
                           <video controls src={question.questionVid} width="600px" />
                         }
+                        { question.quesCode &&
+                          <CodeDisplay code={question.quesCode}/>
+                        }
                       </div>
                       <div className="question-actions-user">
                         <div>
@@ -193,6 +198,8 @@ const QuestionsDetails = () => {
                       setQuestionImg={setAnsImg}
                       questionVid={ansVid} 
                       setQuestionVid={setAnsVid}
+                      setQuesCode={setAnsCode}
+                      quesCode={ansCode}
                     />
 
                     <br />
