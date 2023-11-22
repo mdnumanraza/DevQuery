@@ -17,7 +17,7 @@ const CodeInput = ({ Code, setCode, setCodeDiv }) => {
         <button type="button" onClick={()=>setCodeDiv(false)}>Done</button>
         <p
           onClick={() => {
-            setQuesCode("");
+            setCode("");
             setCodeDiv(false);
           }}
         >

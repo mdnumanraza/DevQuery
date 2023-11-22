@@ -15,7 +15,8 @@ import {
   voteQuestion,
 } from "../../actions/question";
 import TextEditor from "../AskQuestion/RichTextEditor/TextEditor";
-import CodeDisplay from "../AskQuestion/RichTextEditor/CodeDisplay";
+import CodeDisplay from "../../components/CodeDisplay";
+
 
 const QuestionsDetails = () => {
   const { id } = useParams();
@@ -136,6 +137,8 @@ const QuestionsDetails = () => {
                         }
                         { question.quesCode &&
                           <CodeDisplay code={question.quesCode}/>
+                          
+                          
                         }
                       </div>
                       <div className="question-actions-user">

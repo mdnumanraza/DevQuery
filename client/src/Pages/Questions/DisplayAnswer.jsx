@@ -5,7 +5,8 @@ import { useSelector, useDispatch } from "react-redux";
 
 import Avatar from "../../components/Avatar/Avatar";
 import { deleteAnswer } from "../../actions/question";
-import CodeDisplay from "../AskQuestion/RichTextEditor/CodeDisplay";
+import CodeDisplay from "../../components/CodeDisplay";
+
 
 const DisplayAnswer = ({ question, handleShare }) => {
   const User = useSelector((state) => state.currentUserReducer);
@@ -32,6 +33,7 @@ const DisplayAnswer = ({ question, handleShare }) => {
             {ans.ansCode &&
               
                 <CodeDisplay code={ans.ansCode}/>
+                
              
             }
           </div>
