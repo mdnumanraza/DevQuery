@@ -7,6 +7,7 @@ import addvid from '../../../assets/addvid.png'
 import firebase from 'firebase/compat/app'
 import 'firebase/compat/storage'
 import { getStorage, ref, deleteObject } from "firebase/storage";
+import { loadicon } from '../../../assets/loadicon';
 import CodeInput from './CodeInput';
 
 const TextEditor = ({ setQuestionBody, 
@@ -18,7 +19,7 @@ const TextEditor = ({ setQuestionBody,
                       setQuesCode ,
                       setAnsCode
 }) => {
-  const loadicon = 'https://www.superiorlawncareusa.com/wp-content/uploads/2020/05/loading-gif-png-5.gif'
+  
   const [content, setContent] = useState('');
   const editorRef = useRef();
   const [bold, setBold] = useState(false);
@@ -32,7 +33,7 @@ const TextEditor = ({ setQuestionBody,
   const [load, setLoad] = useState(false);
 
 
-    // ------------ firebase image upload and delete ----------------
+// ------------ firebase image upload and delete ----------------
   
     const handleupload = async(e)=>{
       setLoad(true);

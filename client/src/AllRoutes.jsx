@@ -4,11 +4,13 @@ import { Routes, Route } from "react-router-dom";
 import Home from "./Pages/Home/Home";
 import Auth from "./Pages/Auth/Auth";
 import Questions from "./Pages/Questions/Questions";
+import Posts from "./Pages/PublicSpace/Posts";
 import AskQuestion from "./Pages/AskQuestion/AskQuestion";
 import DisplayQuestion from "./Pages/Questions/DisplayQuestion";
 import Tags from "./Pages/Tags/Tags";
 import Users from "./Pages/Users/Users";
 import UserProfile from "./Pages/UserProfile/UserProfile";
+import AddPost from "./Pages/AddPosts/AddPost";
 
 const AllRoutes = ({ slideIn, handleSlideIn }) => {
   return (
@@ -19,9 +21,14 @@ const AllRoutes = ({ slideIn, handleSlideIn }) => {
       />
       <Route path="/Auth" element={<Auth />} />
       <Route path="/AskQuestion" element={<AskQuestion />} />
+      <Route path="/Addposts" element={<AddPost />} />
       <Route
         path="/Questions"
         element={<Questions slideIn={slideIn} handleSlideIn={handleSlideIn} />}
+      />
+      <Route
+        path="/Posts"
+        element={<Posts slideIn={slideIn} handleSlideIn={handleSlideIn} />}
       />
       <Route
         path="/Questions/:id"

@@ -48,8 +48,8 @@ const Navbar = ({ handleSlideIn }) => {
           <Link to="/" className="nav-item nav-btn res-nav">
             Products
           </Link>
-          <Link to="/" className="nav-item nav-btn res-nav">
-            For Teams
+          <Link to="/Addpost" className="nav-item nav-btn res-nav">
+            Public Space
           </Link>
           <form>
             <input type="text" placeholder="Search..." />

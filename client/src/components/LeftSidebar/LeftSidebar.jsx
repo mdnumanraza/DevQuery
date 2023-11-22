@@ -2,6 +2,7 @@ import React from "react";
 import "./LeftSidebar.css";
 import { NavLink } from "react-router-dom";
 import Globe from "../../assets/Globe.svg";
+import  publicicon  from "../../assets/publicicon.png";
 
 const LeftSidebar = ({ slideIn, handleSlideIn }) => {
   const slideInStyle = {
@@ -27,6 +28,7 @@ const LeftSidebar = ({ slideIn, handleSlideIn }) => {
           <div>
             <p>PUBLIC</p>
           </div>
+
           <button onClick={() => handleSlideIn()} className="nav-btn">
             <NavLink
               to="/Questions"
@@ -37,6 +39,18 @@ const LeftSidebar = ({ slideIn, handleSlideIn }) => {
               <p style={{ paddingLeft: "10px" }}> Questions </p>
             </NavLink>
           </button>
+
+          <button onClick={() => handleSlideIn()} className="nav-btn">
+            <NavLink
+              to="/Posts"
+              className="side-nav-links"
+              activeclassname="active"
+            >
+              <img src={publicicon} alt="public" width="30px" />
+              <p style={{ paddingLeft: "10px" }}> Public Space </p>
+            </NavLink>
+          </button>
+
           <button onClick={() => handleSlideIn()} className="nav-btn">
             <NavLink
               to="/Tags"

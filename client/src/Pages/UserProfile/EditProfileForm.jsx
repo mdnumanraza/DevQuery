@@ -3,9 +3,9 @@ import { useDispatch } from "react-redux";
 import { updateProfile } from "../../actions/users";
 import firebase from 'firebase/compat/app'
 import 'firebase/compat/storage'
-
+import { loadicon } from "../../assets/loadicon";
 const EditProfileForm = ({ currentUser, setSwitch }) => {
-  const loadicon = 'https://www.superiorlawncareusa.com/wp-content/uploads/2020/05/loading-gif-png-5.gif'
+  
   const [name, setName] = useState(currentUser?.result?.name);
   const [about, setAbout] = useState(currentUser?.result?.about);
   const [pic, setPic] = useState(currentUser?.result?.pic);

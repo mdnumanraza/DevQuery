@@ -10,9 +10,10 @@ import { signup, login } from "../../actions/auth";
 import firebase from 'firebase/compat/app'
 import 'firebase/compat/storage'
 import { getStorage, ref, deleteObject } from "firebase/storage";
+import { loadicon } from "../../assets/loadicon";
 
 const Auth = () => {
-  const loadicon = 'https://www.superiorlawncareusa.com/wp-content/uploads/2020/05/loading-gif-png-5.gif'
+  
   const [isSignup, setIsSignup] = useState(false);
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
