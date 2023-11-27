@@ -140,16 +140,14 @@
 }
 
 @media screen and (max-width: 420px) {
- body{
-  overflow: hidden;
- }
+
  .home-container-2{
   width: 100vw;
-  overflow: hidden;
+  /* overflow: hidden; */
  }
  
 }
 .home-container-2{
  width: 100vw;
- overflow: hidden;
+ /* overflow: hidden; */
 }

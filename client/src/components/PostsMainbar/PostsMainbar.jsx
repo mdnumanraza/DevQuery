@@ -10,14 +10,15 @@ const PostsMainbar = () => {
   const user = 1;
   const navigate = useNavigate();
 
-  const questionsList = useSelector((state) => state.questionsReducer);
+  const postsList = useSelector((state) => state.postsReducer);
+  console.log(postsList)
 
   const checkAuth = () => {
     if (user === null) {
       alert("login or signup to add a post");
       navigate("/Auth");
     } else {
-      navigate("/AskPosts");
+      navigate("/Posts");
     }
   };
 
@@ -33,12 +34,12 @@ const PostsMainbar = () => {
       </div>
       
       <div>
-        {questionsList.data === null ? (
+        {postsList.data === null ? (
           <h1>Loading...</h1>
         ) : (
           <>
-            <p>{questionsList.data.length} questions</p>
-            <PostsList questionsList={questionsList.data} />
+            <p>{postsList.data.length}posts</p>
+            <PostsList postsList={postsList.data} />
           </>
         )}
       </div>

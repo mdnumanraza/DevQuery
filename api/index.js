@@ -5,6 +5,8 @@ import dotenv from "dotenv";
 import userRoutes from "./routes/users.js";
 import questionRoutes from "./routes/Questions.js";
 import answerRoutes from "./routes/Answers.js";
+import PostRoutes from "./routes/Posts.js";
+import CommentRoutes from "./routes/Comments.js";
 import connectDB from "./connectMongoDb.js";
 
 dotenv.config();
@@ -21,6 +23,8 @@ app.get('/',(req, res) => {
 app.use("/user", userRoutes);
 app.use("/questions", questionRoutes);
 app.use("/answer", answerRoutes);
+app.use("/posts", PostRoutes);
+app.use("/comment", CommentRoutes);
 
 const PORT = process.env.PORT || 5000;
 

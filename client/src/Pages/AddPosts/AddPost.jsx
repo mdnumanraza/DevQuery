@@ -1,10 +1,13 @@
+import "./AddPost.css"
 import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
-
-import "./AddPost.css";
-import { askQuestion } from "../../actions/question";
 import AddFiles from "./AddFiles"
+
+import Filter from 'bad-words';
+
+import { addPost } from "../../actions/post";
+
 
 const AddPost = () => {
   const [postBody, setPostBody] = useState("");
@@ -20,6 +23,8 @@ const AddPost = () => {
  
   const navigate = useNavigate();
 
+  const filter = new Filter();
+
 
   if(User&& flag){
     setUserPic(User.result.pic)
@@ -33,9 +38,16 @@ const AddPost = () => {
     console.log(postBody)
     if (User) {
     
-      if ( postBody && postImg) {
+      if ( postBody ) {
+
+        if(filter.isProfane(postBody)){
+          const profanityWord = filter.clean(postBody);
+          alert(` ${profanityWord} Abusive word detected , please remove abusive words and try again`);
+          setPostBody("");
+          return
+        }
         dispatch(
-          askQuestion(
+          addPost(
             {
               postBody,    
               postImg,
@@ -47,8 +59,13 @@ const AddPost = () => {
             navigate
           )
         );
-      } else alert("Please enter all the fields");
-    } else alert("Login to ask question");
+        setPostBody("");
+        setPostImg("");
+        setPostVid("");
+        setPostFile("");
+        
+      } else alert("Please your post and image of the post");
+    } else alert("Login to add Post");
   };
 
 
@@ -69,7 +86,14 @@ const AddPost = () => {
             </label>
 
            <div className="add-files">
-            <AddFiles/>
+            <AddFiles 
+                postImg={postImg} 
+                setPostImg={setPostImg} 
+                postVid={postVid} 
+                setPostVid={setPostVid}
+                postFile={postFile} 
+                setPostFile={setPostFile}
+            />
            </div>
           </div>
           <button

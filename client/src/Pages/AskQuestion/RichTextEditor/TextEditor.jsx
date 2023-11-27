@@ -109,54 +109,186 @@ const TextEditor = ({ setQuestionBody,
   
 
 
+  // const handleFormatClick = (format) => {
+  //   const selection = window.getSelection();
+  //   const range = selection.getRangeAt(0);
+
+  //   // Check if the selection already has the specified format
+  //   const isFormatApplied = document.queryCommandState(format);
+
+  //   if (!isFormatApplied) {
+  //     // Apply the specified format
+  //     document.execCommand(format, false, null);
+
+  //     // Update the state based on the format
+  //     switch (format) {
+  //       case 'bold':
+  //         setBold(true);
+  //         break;
+  //       case 'italic':
+  //         setItalic(true);
+  //         break;
+  //       case 'underline':
+  //         setUnderline(true);
+  //         break;
+  //       default:
+  //         break;
+  //     }
+  //   } else {
+  //     // Remove the specified format
+  //     document.execCommand(format, false, null);
+
+  //     // Update the state based on the format
+  //     switch (format) {
+  //       case 'bold':
+  //         setBold(false);
+  //         break;
+  //       case 'italic':
+  //         setItalic(false);
+  //         break;
+  //       case 'underline':
+  //         setUnderline(false);
+  //         break;
+  //       default:
+  //         break;
+  //     }
+  //   }
+  //   const newContent = editorRef.current.innerHTML;
+  //   setContent(newContent);
+  //   setQuestionBody(newContent);
+  // };
+
+
+  // const handleFormatClick = (format) => {
+  //   const selection = window.getSelection();
+  //   const range = selection.getRangeAt(0);
+  
+  //   // Check if the selection is collapsed (no text selected)
+  //   if (range.collapsed) {
+  //     // Insert placeholder text with the specified format
+  //     document.execCommand('insertHTML', false, `<span style="${getInlineStyle(format)}">[Your ${format.charAt(0).toUpperCase() + format.slice(1)} Text]</span>`);
+      
+  //     // Update the state based on the format
+  //     updateState(format, true);
+  
+  //     const newContent = editorRef.current.innerHTML;
+  //     setContent(newContent);
+  //     setQuestionBody(newContent);
+  //     return;
+  //   }
+  
+  //   // Check if the selection already has the specified format
+  //   const isFormatApplied = document.queryCommandState(format);
+  
+  //   // Toggle the format based on the current state
+  //   document.execCommand(format, false, null);
+  
+  //   // Update the state based on the format and current state
+  //   updateState(format, !isFormatApplied);
+  
+  //   const newContent = editorRef.current.innerHTML;
+  //   setContent(newContent);
+  //   setQuestionBody(newContent);
+  // };
+
+
+  
+  
+  // Helper function to get inline styles
+  // const getInlineStyle = (format) => {
+  //   switch (format) {
+  //     case 'bold':
+  //       return 'font-weight: bold;';
+  //     case 'italic':
+  //       return 'font-style: italic;';
+  //     case 'underline':
+  //       return 'text-decoration: underline;';
+  //     default:
+  //       return '';
+  //   }
+  // };
+  
+  // Helper function to update state based on the format
+  // const updateState = (format, value) => {
+  //   switch (format) {
+  //     case 'bold':
+  //       setBold(value);
+  //       break;
+  //     case 'italic':
+  //       setItalic(value);
+  //       break;
+  //     case 'underline':
+  //       setUnderline(value);
+  //       break;
+  //     default:
+  //       break;
+  //   }
+  // };
+  
+  
   const handleFormatClick = (format) => {
     const selection = window.getSelection();
     const range = selection.getRangeAt(0);
-
-    // Check if the selection already has the specified format
-    const isFormatApplied = document.queryCommandState(format);
-
-    if (!isFormatApplied) {
-      // Apply the specified format
-      document.execCommand(format, false, null);
-
+  
+    // Check if the selection is collapsed (no text selected)
+    if (range.collapsed) {
+      // Insert placeholder text with the specified format
+      document.execCommand('insertHTML', false, `<span style="${getInlineStyle(format)}" id="formattedText">[Your ${format.charAt(0).toUpperCase() + format.slice(1)} Text]</span>`);
+      
       // Update the state based on the format
-      switch (format) {
-        case 'bold':
-          setBold(true);
-          break;
-        case 'italic':
-          setItalic(true);
-          break;
-        case 'underline':
-          setUnderline(true);
-          break;
-        default:
-          break;
-      }
-    } else {
-      // Remove the specified format
-      document.execCommand(format, false, null);
-
-      // Update the state based on the format
-      switch (format) {
-        case 'bold':
-          setBold(false);
-          break;
-        case 'italic':
-          setItalic(false);
-          break;
-        case 'underline':
-          setUnderline(false);
-          break;
-        default:
-          break;
-      }
+      updateState(format, true);
+  
+      const newContent = editorRef.current.innerHTML;
+      setContent(newContent);
+      setQuestionBody(newContent);
+      return;
     }
+  
+    // Checking if the selection already has the specified format
+    const isFormatApplied = document.queryCommandState(format);
+  
+    // Toggle the format based on the current state
+    document.execCommand(format, false, null);
+  
+    // Update the state based on the format and current state
+    updateState(format, !isFormatApplied);
+  
     const newContent = editorRef.current.innerHTML;
     setContent(newContent);
     setQuestionBody(newContent);
   };
+  
+  //  function to get inline styles
+  const getInlineStyle = (format) => {
+    switch (format) {
+      case 'bold':
+        return 'font-weight: bold;';
+      case 'italic':
+        return 'font-style: italic;';
+      case 'underline':
+        return 'text-decoration: underline;';
+      default:
+        return '';
+    }
+  };
+  
+  //  function to update state based on the format
+  const updateState = (format, value) => {
+    switch (format) {
+      case 'bold':
+        setBold(value);
+        break;
+      case 'italic':
+        setItalic(value);
+        break;
+      case 'underline':
+        setUnderline(value);
+        break;
+      default:
+        break;
+    }
+  };
+  
 
   // link handler
   const handleLinkClick = () => {
@@ -403,7 +535,7 @@ const TextEditor = ({ setQuestionBody,
 
       {/* editor */}
       <div
-        id="ask-ques-body"
+        id="ask-ques-body "
         style={{ border: '1px solid #ccc', minHeight: '100px', padding: '10px' }}
         ref={editorRef}
         contentEditable={true}

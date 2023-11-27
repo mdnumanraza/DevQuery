@@ -10,15 +10,19 @@ import addfile from "../../assets/addfile.png";
 import fileicon from "../../assets/file.svg";
 import deletebtn from "../../assets/delete.svg";
 
-const AddFiles = () => {
+const AddFiles = ({
+    postImg,
+    setPostImg,
+    postVid,
+    setPostVid,
+    postFile,
+    setPostFile
+}) => {
   const [load, setLoad] = useState(false);
   const [picDiv, setPicDiv] = useState(false);
   const [vidDiv, setVidDiv] = useState(false);
   const [fileDiv, setFileDiv] = useState(false);
   const [status, setStatus] = useState("");
-  const [pic, setPic] = useState("");
-  const [vid, setVid] = useState("");
-  const [otherFile, setOtherFile] = useState("");
 
   // ------------ firebase image upload and delete ----------------
 
@@ -31,7 +35,7 @@ const AddFiles = () => {
       await fileRef.put(selectedFile).then((snapshot) => {
         snapshot.ref.getDownloadURL().then((downloadURL) => {
           console.log(downloadURL);
-          setPic(downloadURL);
+          setPostImg(downloadURL);
           setStatus("Image uploaded successfully ");
           setLoad(false);
         });
@@ -51,7 +55,7 @@ const AddFiles = () => {
       await fileRef.put(selectedFile).then((snapshot) => {
         snapshot.ref.getDownloadURL().then((downloadURL) => {
           console.log(downloadURL);
-          setVid(downloadURL);
+          setPostVid(downloadURL);
           setStatus("Video uploaded successfully ");
           setLoad(false);
         });
@@ -72,7 +76,7 @@ const AddFiles = () => {
       await fileRef.put(selectedFile).then((snapshot) => {
         snapshot.ref.getDownloadURL().then((downloadURL) => {
           console.log(downloadURL);
-          setOtherFile(downloadURL);
+          setPostFile(downloadURL);
           setStatus("file uploaded successfully ");
           setLoad(false);
         });
@@ -92,7 +96,7 @@ const AddFiles = () => {
     deleteObject(imageRef)
       .then(() => {
         console.log("deleted");
-        setPic("");
+        setPostImg("");
         setStatus("");
       })
       .catch((error) => {
@@ -108,7 +112,7 @@ const AddFiles = () => {
     deleteObject(videoRef)
       .then(() => {
         console.log("deleted");
-        setVid("");
+        setPostVid("");
         setStatus("");
       })
       .catch((error) => {
@@ -124,7 +128,7 @@ const AddFiles = () => {
     deleteObject(fileRef)
       .then(() => {
         console.log("deleted");
-        setOtherFile("");
+        setPostFile("");
         setStatus("");
       })
       .catch((error) => {
@@ -220,7 +224,7 @@ const AddFiles = () => {
               </button>
               <p
                 onClick={() => {
-                  handleDeleteImage(pic)
+                  handleDeleteImage(postImg)
                   setPicDiv(false);
                 }}
               >
@@ -258,7 +262,7 @@ const AddFiles = () => {
               </button>
               <p
                 onClick={() => {
-                  handleDeleteVideo(vid)
+                  handleDeleteVideo(postVid)
                   setVidDiv(false);
                 }}
               >
@@ -303,7 +307,7 @@ const AddFiles = () => {
               </button>
               <p
                 onClick={() => {
-                  handleDeletefile(otherFile)
+                  handleDeletefile(postFile)
                   setFileDiv(false);
                 }}
               >
@@ -317,36 +321,36 @@ const AddFiles = () => {
       </div>
 
       <div className="show-media">
-        {pic && (
+        {postImg && (
           <>
-            <img src={pic} width="50px" alt="" />
+            <img src={postImg} width="50px" alt="" />
             <button
               type="button"
               className="media-btn"
-              onClick={() => handleDeleteImage(pic)}
+              onClick={() => handleDeleteImage(postImg)}
             >
               <img src={deletebtn} alt="" />
             </button>
           </>
         )}
 
-        {vid && (
+        {postVid && (
           <>
-            <video src={vid} width="50px" alt="" />
+            <video src={postVid} width="50px" alt="" />
             <button
               type="button"
               className="media-btn"
-              onClick={() => handleDeleteVideo(vid)}
+              onClick={() => handleDeleteVideo(postVid)}
             >
               <img src={deletebtn} alt="" />
             </button>
           </>
         )}
 
-        {otherFile && (
+        {postFile && (
           <>
             <embed 
-            src={otherFile} 
+            src={postFile} 
             width="80px"  
             type="application/pdf"
             frameBorder="0"
@@ -355,7 +359,7 @@ const AddFiles = () => {
             <button
               type="button"
               className="media-btn"
-              onClick={() => handleDeletefile(otherFile)}
+              onClick={() => handleDeletefile(postFile)}
             >
               <img src={deletebtn} alt="" />
             </button>
