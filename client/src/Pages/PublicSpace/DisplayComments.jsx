@@ -8,15 +8,23 @@ import { deleteComment } from "../../actions/post";
 
 
 const DisplayComments = ({post}) => {
+
   const User = useSelector((state) => state.currentUserReducer);
-  const id = User.result._id
+  const id = User?.result?._id
   const dispatch = useDispatch();
+
   const handleDelete = (commentId, noOfComments) => {
-    dispatch(deleteComment(id, commentId, noOfComments - 1));
+    if(User){
+      try {
+        dispatch(deleteComment(id, commentId, noOfComments - 1));
+        
+      } catch (error) {
+        console.log(error)
+      }
+    }
   };
 
 
-  
   return (
     <div>
       {post.comment.map((comm) => (
@@ -24,7 +32,7 @@ const DisplayComments = ({post}) => {
 
           <p className="question-body" >{comm.commentBody}</p>
 
-          <div className="q-media">
+          {/* <div className="q-media">
             {comm.commImg &&
               <img src={comm.commImg} width="200px" alt="" />
             }
@@ -40,7 +48,7 @@ const DisplayComments = ({post}) => {
                scrolling="auto" 
                />
             }
-          </div>
+          </div> */}
           
           <div className="question-actions-user">
             <div>
@@ -48,7 +56,7 @@ const DisplayComments = ({post}) => {
               {User?.result?._id === comm?.userId && (
                 <button
                   type="button"
-                  onClick={() => handleDelete(comm._id, comm.noOfComments)}
+                  onClick={() => handleDelete(User?._id, comm.noOfComments)}
                 >
                   Delete
                 </button>

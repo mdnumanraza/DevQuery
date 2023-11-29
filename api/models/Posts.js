@@ -21,8 +21,8 @@ const PostsSchema = mongoose.Schema({
     default: 0 
   },
   Likes: { 
-    type: Number, 
-    default: 0
+    type: [String], 
+    default: [] 
   },
   userPosted: { 
     type: String, 

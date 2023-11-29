@@ -28,9 +28,9 @@ export const deletePost = (id) => async (dispatch) => {
   }
 };
 
-export const likePost = (id, Likes) => async (dispatch) => {
+export const likePost = (id, userId) => async (dispatch) => {
   try {
-    await api.likePost(id, Likes);
+    await api.likePost(id, userId);
     dispatch(fetchAllPosts());
   } catch (error) {
     console.log(error);

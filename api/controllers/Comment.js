@@ -33,21 +33,35 @@ const updateNoOfPosts = async (_id, noOfComments) => {
 
 export const deleteComment = async (req, res) => {
   const { id: _id } = req.params;
-  const { commentId, noOfComments } = req.body;
+  const { commentUser, noOfComments } = req.body;
 
   if (!mongoose.Types.ObjectId.isValid(_id)) {
     return res.status(404).send("Post unavailable...");
   }
-  if (!mongoose.Types.ObjectId.isValid(commentId)) {
-    return res.status(404).send("Comment unavailable...");
-  }
+  // if (!mongoose.Types.ObjectId.isValid(commentId)) {
+  //   return res.status(404).send("Comment unavailable...");
+  // }
   updateNoOfPosts(_id, noOfComments);
+
   try {
-    await Posts.updateOne(
-      { _id },
-      { $pull: { comment: { _id: commentId } } }
+    // await Posts.updateOne(
+    //   { _id },
+    //   { $pull: { comment: { userId:commentUser } } }
+    // );
+    const post = Posts.findById(_id);
+    if (!post) {
+      return res.status(404).send("Post not found...");
+    }
+
+    const updatedComments = post.comment.filter(comment => comment.userId !== commentUser);
+
+    await Posts.findByIdAndUpdate(
+      _id,
+      { $set: { comment: updatedComments } },
+      { new: true } 
     );
-    res.status(200).json({ message: "Successfully deleted..." });
+    
+    res.status(200).json({ message: "Successfully deleted...", updatedComments });
   } catch (error) {
     res.status(405).json(error);
   }

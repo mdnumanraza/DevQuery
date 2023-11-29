@@ -7,6 +7,7 @@ import AddFiles from "./AddFiles"
 import Filter from 'bad-words';
 
 import { addPost } from "../../actions/post";
+import VideoPlayer from "../../components/VideoPlayer/VideoPlayer";
 
 
 const AddPost = () => {
@@ -105,6 +106,7 @@ const AddPost = () => {
           </button>
         </form>
       </div>
+      <VideoPlayer/>
     </div>
   );
 };

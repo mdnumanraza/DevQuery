@@ -12,7 +12,8 @@ import Filter from "bad-words";
 
 import { useDispatch, useSelector } from "react-redux";
 import DisplayComments from "../../Pages/PublicSpace/DisplayComments";
-import { likePost, postComment } from "../../actions/post";
+import { deletePost, likePost, postComment } from "../../actions/post";
+import { Navigate, useNavigate } from "react-router-dom";
 
 const Posts = ({ post }) => {
   const [commentBody, setCommentBody] = useState("");
@@ -23,6 +24,9 @@ const Posts = ({ post }) => {
   const filter = new Filter();
 
   const dispatch = useDispatch();
+
+  const navigate = useNavigate();
+
   const user = useSelector((state) => state.currentUserReducer);
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -59,15 +63,41 @@ const Posts = ({ post }) => {
     setCommDiv(!commDiv);
   };
 
+  const likesList = post?.Likes;
+  const index = likesList.findIndex((userId) => user?._id === String(userId))
+
   const handleLikes = () => {
-    if (like === "" || like === "unlike") {
-      dispatch(likePost(post._id, post.likes + 1));
-      setLike("like");
-    } else {
-      dispatch(likePost(post._id, post.likes - 1));
-      setLike("unlike");
+    if(user){
+      try {       
+        if (index===-1) {
+          dispatch(likePost(post._id, user?.result?._id));
+          setLike("like");
+        } else {
+          dispatch(likePost(post._id, user?.result?._id));
+          setLike("unlike");
+        }
+      } catch (e) {
+        console.log(e.message)
+      }
+    }else{
+      alert("Please login/register  to like ");
+      navigate("/auth");
     }
   };
+
+
+  const handleDelete = ()=>{
+    if(user){
+      try {
+        dispatch(
+          deletePost(post._id)
+        )
+      } catch (error) {
+        console.log(error)
+      }
+    }
+  }
+
 
   return (
     <div className="posts-box">
@@ -89,7 +119,7 @@ const Posts = ({ post }) => {
               <br />
             </div>
             {dotDiv && (
-              <div className="dot-div">
+              <div className="dot-div" style={{cursor:"pointer"}} onClick={handleDelete}>
                 <h4>Delete</h4>
               </div>
             )}
@@ -97,10 +127,38 @@ const Posts = ({ post }) => {
           </div>
          
           <div className="imgBg">
-            <img src={post.postImg} alt="bg" className="cover" />
+           { post.postImg &&
+           <img src={post.postImg} alt="bg" className="cover" />}
+            
+          </div>
+          <div className="media">
+          {post.postVid &&
+              <video src={post.postVid} controls ></video>
+            }
+            {post.postFile &&
+             <embed 
+             src={post.postFile} 
+             width="100%"  
+             type="application/pdf"
+             frameBorder="0"
+             scrolling="auto" 
+             />
+
+            }
           </div>
           <div className="btns">
             <div className="left">
+              <div className="likes" onClick={handleLikes} style={{cursor:'pointer'}}>
+                {
+                   like==="like" &&
+                   <FaHeart/>
+                }
+                {
+                  like===("unlike" || " " ) &&
+                  <FaRegHeart/>
+                }
+                {post.Likes.length}
+              </div>
               <img src={comment} alt="comment" onClick={toggleCommentDiv} />
               <span>{post.noOfComments}</span>
               <img src={share} alt="share" />

@@ -36,8 +36,9 @@ export const voteQuestion = (id, value) =>
   export const addPost = (postData) => API.post("/posts/add", postData);
   export const getAllPosts = () => API.get("/posts/get");
   export const deletePost = (id) => API.delete(`/posts/delete/${id}`);
-  export const likePost = (id, Likes) =>
-    API.patch(`/posts/like/${id}`, { Likes });
+  
+  export const likePost = (id, userId) =>
+    API.patch(`/posts/like/${id}`, { userId});
 
   // comment routes
   export const postComment = (id, noOfComments, commentBody, userCommented, userId, userPic) =>
