@@ -6,6 +6,7 @@ import { useSelector, useDispatch } from "react-redux";
 import Avatar from "../../components/Avatar/Avatar";
 import { deleteAnswer } from "../../actions/question";
 import CodeDisplay from "../../components/CodeDisplay";
+import VideoPlayer from "../../components/VideoPlayer/VideoPlayer";
 
 
 const DisplayAnswer = ({ question, handleShare }) => {
@@ -28,7 +29,8 @@ const DisplayAnswer = ({ question, handleShare }) => {
               <img src={ans.ansImg} width="200px" alt="" />
             }
             {ans.ansVid &&
-              <video controls src={ans.ansVid} width="500px" />
+              // <video controls src={ans.ansVid} width="500px" />
+             <VideoPlayer vidUrl={ans.ansVid} />
             }
             {ans.ansCode &&
               

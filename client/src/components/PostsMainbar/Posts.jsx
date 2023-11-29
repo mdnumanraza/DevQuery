@@ -14,6 +14,7 @@ import { useDispatch, useSelector } from "react-redux";
 import DisplayComments from "../../Pages/PublicSpace/DisplayComments";
 import { deletePost, likePost, postComment } from "../../actions/post";
 import { Navigate, useNavigate } from "react-router-dom";
+import VideoPlayer from "../VideoPlayer/VideoPlayer";
 
 const Posts = ({ post }) => {
   const [commentBody, setCommentBody] = useState("");
@@ -133,7 +134,8 @@ const Posts = ({ post }) => {
           </div>
           <div className="media">
           {post.postVid &&
-              <video src={post.postVid} controls ></video>
+              // <video src={post.postVid} controls ></video>
+              <VideoPlayer vidUrl={post.postVid} />
             }
             {post.postFile &&
              <embed 

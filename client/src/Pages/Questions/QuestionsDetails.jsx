@@ -16,6 +16,7 @@ import {
 } from "../../actions/question";
 import TextEditor from "../AskQuestion/RichTextEditor/TextEditor";
 import CodeDisplay from "../../components/CodeDisplay";
+import VideoPlayer from "../../components/VideoPlayer/VideoPlayer";
 
 
 const QuestionsDetails = () => {
@@ -133,7 +134,8 @@ const QuestionsDetails = () => {
                           <img src={question.questionImg} width="200px" alt="" />
                         }
                         { question.questionVid &&
-                          <video controls src={question.questionVid} width="600px" />
+                          // <video controls src={question.questionVid} width="600px" />
+                          <VideoPlayer vidUrl={question.questionVid} />
                         }
                         { question.quesCode &&
                           <CodeDisplay code={question.quesCode}/>

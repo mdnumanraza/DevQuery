@@ -7,7 +7,7 @@ import { formatTime } from "./format";
 import loadingSvg from "../../assets/loadingSvg.svg"
 
 let count = 0;
-function VideoPlayer() {
+function VideoPlayer({vidUrl}) {
   const videoPlayerRef = useRef(null);
   const controlRef = useRef(null);
 
@@ -122,16 +122,13 @@ function VideoPlayer() {
 
   return (
     <div className="video_container">
-      <div>
-        <h2>React player</h2>
-    
-      </div>
+     
       <Container maxWidth="md" justify="center">
         <div className="player__wrapper" onMouseMove={mouseMoveHandler}>
           <ReactPlayer
             ref={videoPlayerRef}
             className="player"
-            url="https://firebasestorage.googleapis.com/v0/b/add-images-b4898.appspot.com/o/2023-10-25%2010-55-47.mov?alt=media&token=0f45dd9d-a59c-4682-9702-bb7538d58a5a"
+            url={vidUrl}
             width="100%"
             height="100%"
             playing={playing}
