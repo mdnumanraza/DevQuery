@@ -32,23 +32,7 @@ const DisplayComments = ({post}) => {
 
           <p className="question-body" >{comm.commentBody}</p>
 
-          {/* <div className="q-media">
-            {comm.commImg &&
-              <img src={comm.commImg} width="200px" alt="" />
-            }
-            {comm.commVid &&
-              <video controls src={comm.commVid} width="500px" />
-            }
-            {comm.commFile &&
-               <embed 
-               src={comm.commFile} 
-               width="120px"  
-               type="application/pdf"
-               frameBorder="0"
-               scrolling="auto" 
-               />
-            }
-          </div> */}
+       
           
           <div className="question-actions-user">
             <div>

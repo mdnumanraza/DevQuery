@@ -56,9 +56,9 @@
     cursor: pointer;
 }
 .imgBg{
-    position: relative;
+    /* position: relative; */
     width: 100%;
-    height: 320px;
+    /* height: 320px; */
     margin: 10px 0 15px;
 }
 .btns{

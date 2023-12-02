@@ -1,13 +1,13 @@
 import "./AddPost.css"
 import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { useNavigate } from "react-router-dom";
+import { redirect, useNavigate } from "react-router-dom";
 import AddFiles from "./AddFiles"
+import icon from "../../assets/icon.png"
 
 import Filter from 'bad-words';
 
 import { addPost } from "../../actions/post";
-
 
 
 const AddPost = () => {
@@ -27,11 +27,32 @@ const AddPost = () => {
   const filter = new Filter();
 
 
-  if(User&& flag){
-    setUserPic(User.result.pic)
-    setUser(User.result.name)
-    setFlag(false)
-  }
+  // notifications 
+  const [permission, setPermission] = useState(null);
+
+  const requestPermission = () => {
+    Notification.requestPermission().then((result) => {
+      setPermission(result);
+    });
+  };
+
+  const showNotification = (nBody) => {
+    if(permission !== "granted"){
+      requestPermission();
+    }
+    else if (permission === "granted") {
+      const notification = new Notification('Hey, check out the new post!', {
+        body: `${nBody.substring(0,50)}...`,
+        icon: icon, 
+      });
+
+      notification.onclick = () => {
+        navigate('/Posts')
+      };
+    }
+  };
+
+
   
   const handleSubmit = (e) => {
 
@@ -64,6 +85,7 @@ const AddPost = () => {
         setPostImg("");
         setPostVid("");
         setPostFile("");
+        showNotification(postBody)
         
       } else alert("Please your post and image of the post");
     } else alert("Login to add Post");

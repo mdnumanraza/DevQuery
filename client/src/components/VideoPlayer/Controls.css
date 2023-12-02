@@ -17,7 +17,7 @@
   }
 
   .control_Container {
-    background-color: rgba(0, 0, 0, 0.35);
+    /* background-color: rgba(0, 0, 0, 0.432); */
     position: absolute;
     top: 0;
     bottom: 0;
@@ -27,6 +27,7 @@
     z-index: 1;
     display: flex;
     justify-content: space-between;
+    height: 80%;
   }
   
   .top_container {
@@ -37,18 +38,50 @@
   }
   
   .mid__container {
+    /* background-color: aqua; */
+    width: 100%;
+    position: absolute;
     display: flex;
+    gap: 20px;
     justify-content: center;
     align-items: center;
+    justify-content: space-between;
+  }
+
+  .fskip{
+    /* background-color: red; */
+    width: 30%;
+    height: 300px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .bskip{
+    /* background-color: red; */
+    width: 30%;
+    height: 300px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .play{
+    /* background-color: rgb(4, 104, 4); */
+    width: 30%;
+    height: 300px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
   }
   
   .icon__btn {
     padding: 0 10px;
-    color: #7b2cbf;
+    color: #ffffff;
   }
   
   .slider__container {
-    /* width: 100%; */
+    width: 100%;
     display: flex;
     align-items: center;
     padding: 0 16px;
@@ -62,7 +95,6 @@
   
   .inner__controls {
     display: flex;
-    padding: 10px 0;
     align-items: center;
     width: 50%;
   }
@@ -80,6 +112,12 @@
 
   .loading{
     position: absolute;
-    top: 12%;
-    left: 44%;
+    top: 20%;
+    left: 45%;
+  }
+
+  .bottom__container{
+    width: 95%;
+    position: absolute;
+    bottom: 1px;
   }

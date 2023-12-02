@@ -2,7 +2,8 @@ import React, { useState } from "react";
 import moment from "moment";
 import "./Posts.css";
 
-import { FaRegHeart, FaHeart } from "react-icons/fa";
+import likefilled from '../../assets/likefilled.png'
+import likeoutline from '../../assets/likeoutline.png'
 import dots from "../../assets/dots.svg";
 import comment from "../../assets/comment.svg";
 import share from "../../assets/share.svg";
@@ -13,14 +14,15 @@ import Filter from "bad-words";
 import { useDispatch, useSelector } from "react-redux";
 import DisplayComments from "../../Pages/PublicSpace/DisplayComments";
 import { deletePost, likePost, postComment } from "../../actions/post";
-import { Navigate, useNavigate } from "react-router-dom";
+import {useNavigate } from "react-router-dom";
 import VideoPlayer from "../VideoPlayer/VideoPlayer";
+import dUser from '../../assets/duser.png'
 
 const Posts = ({ post }) => {
   const [commentBody, setCommentBody] = useState("");
   const [commDiv, setCommDiv] = useState(false);
   const [dotDiv, setDotDiv] = useState(false);
-  const [like, setLike] = useState("");
+  const [like, setLike] = useState(likeoutline);
 
   const filter = new Filter();
 
@@ -29,6 +31,7 @@ const Posts = ({ post }) => {
   const navigate = useNavigate();
 
   const user = useSelector((state) => state.currentUserReducer);
+
   const handleSubmit = (e) => {
     e.preventDefault();
     if (user) {
@@ -66,16 +69,20 @@ const Posts = ({ post }) => {
 
   const likesList = post?.Likes;
   const index = likesList.findIndex((userId) => user?._id === String(userId))
+  if(index!==-1){
+    setLike(likefilled)
+  }
 
   const handleLikes = () => {
     if(user){
       try {       
         if (index===-1) {
           dispatch(likePost(post._id, user?.result?._id));
-          setLike("like");
+          setLike(likeoutline);
         } else {
+          console.log(index);
           dispatch(likePost(post._id, user?.result?._id));
-          setLike("unlike");
+          setLike(likefilled);
         }
       } catch (e) {
         console.log(e.message)
@@ -88,7 +95,7 @@ const Posts = ({ post }) => {
 
 
   const handleDelete = ()=>{
-    if(user){
+    if(user.result._id=== post.userId){
       try {
         dispatch(
           deletePost(post._id)
@@ -102,23 +109,22 @@ const Posts = ({ post }) => {
 
   return (
     <div className="posts-box">
-      {/* ok */}
       <div className="display-question-container">
         <div className="card">
           <div className="top">
             <div className="userDeatils">
               <div className="profileImg">
-                <img src={post.userPic} alt="user" className="cover" />
+                <img src={post.userPic || dUser} alt="user" className="cover" />
               </div>
               <h3 className="user-posted">{post.userPosted}</h3>
             </div>
             
             <div className="dots">
 
-            <div className="dot" onClick={() => setDotDiv(!dotDiv)}>
+           {(user.result._id=== post.userId) && <div className="dot" onClick={() => setDotDiv(!dotDiv)}>
               <img src={dots} alt="dot" />
               <br />
-            </div>
+            </div>}
             {dotDiv && (
               <div className="dot-div" style={{cursor:"pointer"}} onClick={handleDelete}>
                 <h4>Delete</h4>
@@ -130,8 +136,8 @@ const Posts = ({ post }) => {
           <div className="imgBg">
            { post.postImg &&
            <img src={post.postImg} alt="bg" className="cover" />}
-            
           </div>
+          
           <div className="media">
           {post.postVid &&
               // <video src={post.postVid} controls ></video>
@@ -151,14 +157,7 @@ const Posts = ({ post }) => {
           <div className="btns">
             <div className="left">
               <div className="likes" onClick={handleLikes} style={{cursor:'pointer'}}>
-                {
-                   like==="like" &&
-                   <FaHeart/>
-                }
-                {
-                  like===("unlike" || " " ) &&
-                  <FaRegHeart/>
-                }
+                  <img src={like} alt="" />
                 {post.Likes.length}
               </div>
               <img src={comment} alt="comment" onClick={toggleCommentDiv} />
@@ -179,7 +178,7 @@ const Posts = ({ post }) => {
           </div>
           <div className="addComments">
             <div className="userImg">
-              <img src={user?.result?.pic} alt="user" className="cover" />
+              <img src={user?.result?.pic || dUser} alt="user" className="cover" />
             </div>
 
             <form onSubmit={handleSubmit} className="comm-form">
