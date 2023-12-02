@@ -13,6 +13,7 @@ This website is a question forum and made to look like Stack Overflow.
 - Express js
 - MongoDb
 - Redux
-- Json web token and more
+- Json web tokens
+- Firebase 
 
 
