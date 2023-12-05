@@ -30,6 +30,7 @@
     justify-content: space-between;
     height: 70%;
   }
+
   
   .top_container {
     display: flex;
@@ -122,4 +123,14 @@
     width: 95%;
     position: absolute;
     bottom: 1px;
+  }
+
+  @media screen and (max-width: 420px) {
+    .loading{
+      display: none;
+    }
+
+    .control_Container {
+      height: 60%;
+    }
   }
