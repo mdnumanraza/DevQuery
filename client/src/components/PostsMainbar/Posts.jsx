@@ -95,7 +95,7 @@ const Posts = ({ post }) => {
 
 
   const handleDelete = ()=>{
-    if(user.result._id=== post.userId){
+    if(user?.result?._id=== post.userId){
       try {
         dispatch(
           deletePost(post._id)
@@ -121,7 +121,7 @@ const Posts = ({ post }) => {
             
             <div className="dots">
 
-           {(user.result._id=== post.userId) && <div className="dot" onClick={() => setDotDiv(!dotDiv)}>
+           {(user?.result?._id=== post?.userId) && <div className="dot" onClick={() => setDotDiv(!dotDiv)}>
               <img src={dots} alt="dot" />
               <br />
             </div>}
