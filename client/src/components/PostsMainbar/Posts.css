@@ -32,14 +32,8 @@
     overflow: hidden;
 }
 .cover{
-    position: absolute;
-    top: 0;
-    right: 0;
     width: 100%;
     height: 100%;
-    object-fit: cover;
-    object-position: center;
-    cursor: pointer;
 }
 .card .top .userDeatils h3{
     font-size: 18px;
