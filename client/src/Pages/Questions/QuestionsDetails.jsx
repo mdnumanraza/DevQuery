@@ -131,7 +131,7 @@ const QuestionsDetails = () => {
                       </div>
                       <div className="q-media">
                         { question.questionImg &&
-                          <img src={question.questionImg} width="200px" alt="" />
+                          <img className="qimg" src={question.questionImg} width="200px" alt="" />
                         }
                         { question.questionVid &&
                           // <video controls src={question.questionVid} width="600px" />

@@ -39,31 +39,36 @@ export const deletePost = async (req, res) => {
   }
 };
 
+
 export const likePost = async (req, res) => {
   const { id: _id } = req.params;
-  const userId = req.userId;
+  const { userId } = req.body;
 
   if (!mongoose.Types.ObjectId.isValid(_id)) {
-    return res.status(404).send("post unavailable...");
+    return res.status(404).send("Post unavailable...");
   }
 
   try {
     const post = await Post.findById(_id);
 
-    const likedIndex = post.Likes.findIndex((userId) => userId === String(userId));
+    const likedIndex = post.Likes.findIndex((likedUserId) => likedUserId === String(userId));
 
-      if (likedIndex === -1) {
-        post.Likes.push(userId);
-      } else {
-        post.Likes = post.Likes.filter((id) => id !== String(userId));
-      }
-    
+    if (likedIndex === -1) {
+      // User hasn't liked the post, add the like
+      post.Likes.push(userId);
+    } else {
+      // User already liked the post, remove the like
+      post.Likes = post.Likes.filter((likedUserId) => likedUserId !== String(userId));
+    }
+
     await Post.findByIdAndUpdate(_id, post);
-    const likess = post.Likes.length;
-    res.status(200).json({ message: "likes updated successfully...", likess});    
-  }
-  catch (error) {
-    res.status(404).json({ message: "id not found" });
+    const likesCount = post.Likes.length;
+
+    res.status(200).json({ message: "Likes updated successfully...", likesCount, post });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: "Internal Server Error" });
   }
 };
+
 

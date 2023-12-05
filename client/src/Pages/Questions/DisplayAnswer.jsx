@@ -13,6 +13,7 @@ const DisplayAnswer = ({ question, handleShare }) => {
   const User = useSelector((state) => state.currentUserReducer);
   const { id } = useParams();
   const dispatch = useDispatch();
+  
   const handleDelete = (answerId, noOfAnswers) => {
     dispatch(deleteAnswer(id, answerId, noOfAnswers - 1));
   };

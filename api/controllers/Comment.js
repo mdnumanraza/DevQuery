@@ -10,7 +10,7 @@ export const postComment = async (req, res) => {
     return res.status(404).send("post unavailable...");
   }
 
-  updateNoOfPosts(_id, noOfComments);
+  updateNoOfComments(_id, noOfComments);
   try {
     const updatedPost = await Posts.findByIdAndUpdate(_id, {
       $addToSet: { comment: [{ commentBody, userCommented, userId,userPic }] },
@@ -21,7 +21,7 @@ export const postComment = async (req, res) => {
   }
 };
 
-const updateNoOfPosts = async (_id, noOfComments) => {
+const updateNoOfComments = async (_id, noOfComments) => {
   try {
     await Posts.findByIdAndUpdate(_id, {
       $set: { noOfComments: noOfComments },
@@ -33,36 +33,23 @@ const updateNoOfPosts = async (_id, noOfComments) => {
 
 export const deleteComment = async (req, res) => {
   const { id: _id } = req.params;
-  const { commentUser, noOfComments } = req.body;
+  const { commId, noOfComments } = req.body;
 
   if (!mongoose.Types.ObjectId.isValid(_id)) {
     return res.status(404).send("Post unavailable...");
   }
-  // if (!mongoose.Types.ObjectId.isValid(commentId)) {
-  //   return res.status(404).send("Comment unavailable...");
-  // }
-  updateNoOfPosts(_id, noOfComments);
-
+  if (!mongoose.Types.ObjectId.isValid(commId)) {
+    return res.status(404).send("Comment unavailable...");
+  }
+  updateNoOfComments(_id, noOfComments);
   try {
-    // await Posts.updateOne(
-    //   { _id },
-    //   { $pull: { comment: { userId:commentUser } } }
-    // );
-    const post = Posts.findById(_id);
-    if (!post) {
-      return res.status(404).send("Post not found...");
-    }
-
-    const updatedComments = post.comment.filter(comment => comment.userId !== commentUser);
-
-    await Posts.findByIdAndUpdate(
-      _id,
-      { $set: { comment: updatedComments } },
-      { new: true } 
+    await Posts.updateOne(
+      { _id },
+      { $pull: { comment: { _id: commId } } }
     );
-    
-    res.status(200).json({ message: "Successfully deleted...", updatedComments });
+    res.status(200).json({ message: "Successfully deleted..." ,Posts});
   } catch (error) {
     res.status(405).json(error);
   }
 };
+

@@ -11,18 +11,21 @@ const DisplayComments = ({post}) => {
 
   const User = useSelector((state) => state.currentUserReducer);
   const id = User?.result?._id
+  const postId = post?._id
   const dispatch = useDispatch();
 
-  const handleDelete = (commentId, noOfComments) => {
+  const handleDelete = (commId, noOfComments) => {
     if(User){
       try {
-        dispatch(deleteComment(id, commentId, noOfComments - 1));
+        dispatch(deleteComment(postId, commId, noOfComments - 1));
+        console.log(commId,noOfComments-1)
         
       } catch (error) {
         console.log(error)
       }
     }
   };
+ 
 
 
   return (
@@ -40,7 +43,7 @@ const DisplayComments = ({post}) => {
               {User?.result?._id === comm?.userId && (
                 <button
                   type="button"
-                  onClick={() => handleDelete(User?._id, comm.noOfComments)}
+                  onClick={() => handleDelete(comm._id, post.noOfComments)}
                 >
                   Delete
                 </button>

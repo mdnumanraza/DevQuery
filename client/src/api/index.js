@@ -1,7 +1,7 @@
 import axios from "axios";
 
 const API = axios.create({
-  //baseURL: "http://localhost:5000/",
+  // baseURL: "http://localhost:5000/",
   baseURL: "https://stack-overflow-clone-tau.vercel.app/",
 });
 
@@ -44,5 +44,5 @@ export const voteQuestion = (id, value) =>
   export const postComment = (id, noOfComments, commentBody, userCommented, userId, userPic) =>
     API.patch(`/comment/post/${id}`, { noOfComments, commentBody,  userCommented, userId, userPic});
   
-  export const deleteComment = (id, commentId, noOfComments) =>
-    API.patch(`/comment/delete/${id}`, { commentId, noOfComments });
+  export const deleteComment = (id, commId, noOfComments) =>
+    API.patch(`/comment/delete/${id}`, { commId, noOfComments });

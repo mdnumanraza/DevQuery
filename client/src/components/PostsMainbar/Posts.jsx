@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import moment from "moment";
 import "./Posts.css";
 
@@ -67,23 +67,11 @@ const Posts = ({ post }) => {
     setCommDiv(!commDiv);
   };
 
-  const likesList = post?.Likes;
-  const index = likesList.findIndex((userId) => user?._id === String(userId))
-  if(index!==-1){
-    setLike(likefilled)
-  }
 
   const handleLikes = () => {
     if(user){
-      try {       
-        if (index===-1) {
-          dispatch(likePost(post._id, user?.result?._id));
-          setLike(likeoutline);
-        } else {
-          console.log(index);
-          dispatch(likePost(post._id, user?.result?._id));
-          setLike(likefilled);
-        }
+      try {        
+          dispatch(likePost(post._id, user.result._id));
       } catch (e) {
         console.log(e.message)
       }
@@ -92,6 +80,18 @@ const Posts = ({ post }) => {
       navigate("/auth");
     }
   };
+
+  useEffect(() => {
+    const likes = post.Likes;
+    const liked = likes.includes(user?.result._id);
+  
+    if (liked) {
+      setLike(likefilled);
+    } else {
+      setLike(likeoutline);
+    }
+  }, [post.Likes, user?.result._id, handleLikes]);
+
 
 
   const handleDelete = ()=>{
@@ -156,24 +156,43 @@ const Posts = ({ post }) => {
           </div>
           <div className="btns">
             <div className="left">
-              <div className="likes" onClick={handleLikes} style={{cursor:'pointer'}}>
-                  <img src={like} alt="" />
+
+              <div className="likes" onClick={handleLikes} style={{cursor:'pointer',margin:'0 5px'}}>
+                <img src={like} alt="" />
                 {post.Likes.length}
               </div>
-              <img src={comment} alt="comment" onClick={toggleCommentDiv} />
-              <span>{post.noOfComments}</span>
-              <img src={share} alt="share" />
+
+              <div className="likes" onClick={toggleCommentDiv}  style={{cursor:'pointer',margin:'0 5px'}}>
+                <img src={comment} alt="comment" />
+                {post.noOfComments}
+              </div>
+
+              <div className="likes"  style={{cursor:'pointer',margin:'0 5px'}}>
+                  <img src={share} alt="share" />
+              </div>
+
             </div>
           </div>
           <div className="p-10">
             <h4 className="message">{post.postBody}</h4>
             <h4 className="comments">
-              {post.noOfComments && (
-                <div onClick={toggleCommentDiv} style={{ cursor: "pointer" }}>
-                  {" "}
-                  View all {post.noOfComments} comments
+             
+               
+                 {!commDiv ?
+                 ( <div onClick={toggleCommentDiv} style={{ cursor: "pointer" }}>
+                  {(post.comment.length!==0 ) ?
+                    `View ${post.comment.length===1?'':'all'} ${post.noOfComments} ${post.comment.length===1?'comment':'comments'}` : 'No comments'
+                  } 
+                </div>):
+                (
+                  <div onClick={toggleCommentDiv} style={{ cursor: "pointer" }}>
+                   {(post.comment.length!==0 ) ?
+                    `Hide Comments}` : 'No comments'
+                  }
                 </div>
-              )}
+                )
+                }
+             
             </h4>
           </div>
           <div className="addComments">
@@ -199,14 +218,6 @@ const Posts = ({ post }) => {
               Posted {moment(post.askedOn).fromNow()} by {post.userPosted}
             </p>
           </div>
-          {commDiv && (
-            <h4
-              style={{ marginLeft: "15px", cursor: "pointer" }}
-              onClick={toggleCommentDiv}
-            >
-              close comments
-            </h4>
-          )}
         </div>
       </div>
       {commDiv && <DisplayComments post={post} />}
