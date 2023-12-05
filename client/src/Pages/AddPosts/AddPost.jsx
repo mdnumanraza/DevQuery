@@ -91,14 +91,13 @@ const AddPost = () => {
     } else alert("Login to add Post");
   };
 
-console.log('env',process.env.REACT_APP_API_KEY)
   return (
     <div className="">
       <div className="">
         <h1>Add your public Post</h1>
         <form onSubmit={handleSubmit}>
           <div className="ask-form-container">
-           h{process.env.REACT_APP_API_KEY}
+           
           
             <label htmlFor="ask-ques-body">
               <textarea
