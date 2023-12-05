@@ -2,7 +2,7 @@ import "./Controls.css";
 import ReactPlayer from "react-player";
 import { Container } from "@mui/material";
 import Control from "./Control";
-import { useState, useRef } from "react";
+import { useState, useRef, useEffect } from "react";
 import loadingSvg from "../../assets/loadingSvg.svg"
 
 
@@ -44,12 +44,20 @@ const [cntrlVisibility, setCntrlVisibility] = useState("")
     setVideoState({ ...videoState, buffer: false });
   };
 
+  setTimeout(() => {
+    setCntrlVisibility("none")
+    console.log('i am hidden');
+  }, 3500);
+
+
+
   return (
     <div className="video_container">
      
       <Container maxWidth="md" justify="center">
         <div className="player__wrapper" 
         onMouseOver={()=>{setCntrlVisibility(" ")}} 
+        onClick={()=>{setCntrlVisibility(" ")}} 
         onMouseOut={()=>setCntrlVisibility("none")}
         >
           <ReactPlayer
