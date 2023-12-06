@@ -22,8 +22,6 @@ const Control = ({
   buffer
 }) => {
 
-  
-  
 
   return (
     <div className="control_Container" ref ={controlRef} style={{display:`${cntrlVisibility}`, transitionDelay:"3s", transitionProperty:"display"}}>

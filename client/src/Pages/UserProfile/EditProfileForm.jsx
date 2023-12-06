@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { useDispatch } from "react-redux";
 import { updateProfile } from "../../actions/users";
 
@@ -171,7 +171,7 @@ const EditProfileForm = ({ currentUser, setSwitch }) => {
                   <img
                     className="uploadimg"
                     src={pic}
-                    alt="upload image"
+                    alt="upload-image"
                     width="40px"
                   />
                 </div>

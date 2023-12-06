@@ -4,7 +4,6 @@ import "./Posts.css";
 
 import likefilled from '../../assets/likefilled.png'
 import likeoutline from '../../assets/likeoutline.png'
-import dots from "../../assets/dots.svg";
 import comment from "../../assets/comment.svg";
 import share from "../../assets/share.svg";
 import send from "../../assets/send.svg";
@@ -17,11 +16,11 @@ import { deletePost, likePost, postComment } from "../../actions/post";
 import {useNavigate } from "react-router-dom";
 import VideoPlayer from "../VideoPlayer/VideoPlayer";
 import dUser from '../../assets/duser.png'
+import deleteBtn from '../../assets/delete.svg'
 
 const Posts = ({ post }) => {
   const [commentBody, setCommentBody] = useState("");
   const [commDiv, setCommDiv] = useState(false);
-  const [dotDiv, setDotDiv] = useState(false);
   const [like, setLike] = useState(likeoutline);
 
   const filter = new Filter();
@@ -121,15 +120,11 @@ const Posts = ({ post }) => {
             
             <div className="dots">
 
-           {(user?.result?._id=== post?.userId) && <div className="dot" onClick={() => setDotDiv(!dotDiv)}>
-              <img src={dots} alt="dot" />
-              <br />
-            </div>}
-            {dotDiv && (
+           {(user?.result?._id=== post?.userId) &&
               <div className="dot-div" style={{cursor:"pointer"}} onClick={handleDelete}>
-                <h4>Delete</h4>
+                <img src={deleteBtn} width={'27px'} alt="deleteBtn" />
               </div>
-            )}
+            }
             </div>
           </div>
          

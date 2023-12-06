@@ -2,18 +2,18 @@ import Post from "../models/Posts.js";
 import mongoose from "mongoose";
 
 export const AddPost = async (req, res) => {
-  const postData = req.body;
-  const userId = req.userId;
-  const userPic = req.body.userPic;
-  const addPost = new Post({ ...postData,userId, userPic });
-  try {
-    await addPost.save();
-    res.status(200).json("Added a post successfully");
-  } catch (error) {
-    console.log(error);
-    res.status(409).json("Couldn't add a new post");
-  }
-};
+    const postData = req.body;
+    const userId = req.userId;
+    const userPic = req.body.userPic;
+    const addPost = new Post({ ...postData,userId, userPic });
+    try {
+      await addPost.save();
+      res.status(200).json("Added a post successfully");
+    } catch (error) {
+      console.log(error);
+      res.status(409).json("Couldn't add a new post");
+    }
+  };
 
 export const getAllPosts = async (req, res) => {
   try {

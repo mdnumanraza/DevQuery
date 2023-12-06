@@ -2,7 +2,7 @@ import "./Controls.css";
 import ReactPlayer from "react-player";
 import { Container } from "@mui/material";
 import Control from "./Control";
-import { useState, useRef, useEffect } from "react";
+import { useState, useRef } from "react";
 import loadingSvg from "../../assets/loadingSvg.svg"
 
 
@@ -10,7 +10,7 @@ function VideoPlayer({vidUrl}) {
   const videoPlayerRef = useRef(null);
   const controlRef = useRef(null);
 
-const [cntrlVisibility, setCntrlVisibility] = useState("")
+const [cntrlVisibility, setCntrlVisibility] = useState("none")
 
 
   const [videoState, setVideoState] = useState({
@@ -43,12 +43,6 @@ const [cntrlVisibility, setCntrlVisibility] = useState("")
     // console.log("buffering stoped..");
     setVideoState({ ...videoState, buffer: false });
   };
-
-  setTimeout(() => {
-    setCntrlVisibility("none")
-    console.log('i am hidden');
-  }, 3500);
-
 
 
   return (
