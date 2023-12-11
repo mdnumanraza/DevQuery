@@ -4,7 +4,7 @@ This website is a question forum and made to look like Stack Overflow.
 
 ## live preview
 
-- https://stack-overflow-clone-frontend-pi.vercel.app/
+- [link](https://numan-stackoverflow.vercel.app/)
 
 ## Technologies used:
 
