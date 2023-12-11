@@ -17,6 +17,8 @@ import {useNavigate } from "react-router-dom";
 import VideoPlayer from "../VideoPlayer/VideoPlayer";
 import dUser from '../../assets/duser.png'
 import deleteBtn from '../../assets/delete.svg'
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const Posts = ({ post }) => {
   const [commentBody, setCommentBody] = useState("");
@@ -44,6 +46,8 @@ const Posts = ({ post }) => {
           alert(
             "Abusive word detected , please remove abusive words and try again"
           );
+          toast.dark("Don't Say that 😳")
+          setCommentBody("");
           return;
         } else {
           dispatch(
@@ -57,8 +61,9 @@ const Posts = ({ post }) => {
             })
           );
           setCommentBody("");
+          toast.success("Comment added...")
         }
-      } else alert("Please enter all the fields");
+      } else toast.warn("Please enter all the fields");
     } else alert("Login to add Post");
   };
 
@@ -71,12 +76,16 @@ const Posts = ({ post }) => {
     if(user){
       try {        
           dispatch(likePost(post._id, user.result._id));
+          if(post.Likes.includes(user?.result._id)){
+            toast.error('Unliked 😕')
+          }else{
+            toast.success('Liked successfully 💖')
+          }
       } catch (e) {
         console.log(e.message)
       }
     }else{
       alert("Please login/register  to like ");
-      navigate("/auth");
     }
   };
 
@@ -98,7 +107,8 @@ const Posts = ({ post }) => {
       try {
         dispatch(
           deletePost(post._id)
-        )
+          )
+          toast.success("Deleted successfully")
       } catch (error) {
         console.log(error)
       }
@@ -108,6 +118,7 @@ const Posts = ({ post }) => {
 
   return (
     <div className="posts-box">
+      <ToastContainer/>
       <div className="display-question-container">
         <div className="card">
           <div className="top">
@@ -210,7 +221,7 @@ const Posts = ({ post }) => {
           </div>
           <div className="display-tags-time postTime">
             <p className="display-time">
-              Posted {moment(post.updated).fromNow()} by {post.userPosted}
+              Posted {moment(post.updatedAt).fromNow()} by {post.userPosted}
             </p>
           </div>
         </div>

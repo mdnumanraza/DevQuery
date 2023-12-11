@@ -6,6 +6,8 @@ import AddFiles from "./AddFiles";
 import icon from "../../assets/icon.png";
 import Filter from 'bad-words';
 import { addPost } from "../../actions/post";
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 
 const AddPost = () => {
@@ -13,6 +15,10 @@ const AddPost = () => {
   const [postImg, setPostImg] = useState("");
   const [postVid, setPostVid] = useState("");
   const [postFile, setPostFile] = useState("");
+  const [status, setStatus] = useState("");
+  const [picDiv, setPicDiv] = useState(false);
+  const [vidDiv, setVidDiv] = useState(false);
+  const [fileDiv, setFileDiv] = useState(false);
   const dispatch = useDispatch();
   const User = useSelector((state) => state.currentUserReducer);
   const navigate = useNavigate();
@@ -73,8 +79,15 @@ const AddPost = () => {
         setPostImg("");
         setPostVid("");
         setPostFile("");
+        setStatus("");
+        setFileDiv(false);
+        setPicDiv(false);
+        setVidDiv(false);
+        toast.success('Post added Successfully')
+
       } else {
-        alert("Please enter your post");
+        // alert("Please enter your post");
+        toast.warn("Add any text to post")
       }
     } else {
       alert("Login to add Post");
@@ -83,6 +96,7 @@ const AddPost = () => {
 
   return (
     <div className="">
+      <ToastContainer/>
       <div className="">
         <h1>Add your public Post</h1>
         <form onSubmit={handleSubmit}>
@@ -103,6 +117,14 @@ const AddPost = () => {
                 setPostVid={setPostVid}
                 postFile={postFile}
                 setPostFile={setPostFile}
+                status={status}
+                setStatus={setStatus}
+                picDiv={picDiv}
+                setPicDiv={setPicDiv}
+                vidDiv={vidDiv}
+                setVidDiv={setVidDiv}
+                fileDiv={fileDiv}
+                setFileDiv={setFileDiv}
               />
             </div>
           </div>

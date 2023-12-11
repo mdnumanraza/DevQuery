@@ -16,13 +16,17 @@ const AddFiles = ({
     postVid,
     setPostVid,
     postFile,
-    setPostFile
+    setPostFile,
+    status,
+    setStatus,
+    picDiv, 
+    setPicDiv,
+    vidDiv, 
+    setVidDiv,
+    fileDiv, 
+    setFileDiv,
 }) => {
-  const [load, setLoad] = useState(false);
-  const [picDiv, setPicDiv] = useState(false);
-  const [vidDiv, setVidDiv] = useState(false);
-  const [fileDiv, setFileDiv] = useState(false);
-  const [status, setStatus] = useState("");
+  const [load, setLoad] = useState(false); 
 
   // ------------ firebase image upload and delete ----------------
 
@@ -287,7 +291,7 @@ const AddFiles = ({
                     style={{ marginTop: "5px" }}
                   />
                   <h4>Add File</h4>
-                  <p>.txt , .pdf</p>
+                  <p>txt , pdf, word etc..</p>
                 </div>
 
                 {load && <img src={loadicon} alt="" width="30px" />}
