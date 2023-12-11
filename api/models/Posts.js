@@ -50,6 +50,6 @@ const PostsSchema = mongoose.Schema({
       },
     },
   ],
-});
+},{timestamps:true});
 
 export default mongoose.model("Post", PostsSchema);
