@@ -25,7 +25,7 @@ app.use(express.urlencoded({ limit: '30mb', extended: true }));
 
 app.use(
     cors({
-      origin: ["https://numan-stackoverflow.vercel.app/","http://localhost:3000"] ,
+      origin: '*' ,
       credentials: true,
     })
 );
@@ -38,7 +38,7 @@ import { socketiofunc } from './controllers/socketio.js';
 const httpServer = createServer(app);
 const io = new Server(httpServer, {
   transports: ['polling'],
-  cors: { origin: ["https://numan-stackoverflow.vercel.app/", "http://localhost:3000"] },
+  cors: { origin: '*' },
 });
 socketiofunc(io);
 
