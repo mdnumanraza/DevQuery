@@ -1,19 +1,37 @@
 import Post from "../models/Posts.js";
 import mongoose from "mongoose";
+import User from "../models/auth.js";
+import notifications from "../models/notifications.js";
 
 export const AddPost = async (req, res) => {
+
     const postData = req.body;
     const userId = req.userId;
     const userPic = req.body.userPic;
+    const userPosted = req.body.userPosted
     const addPost = new Post({ ...postData,userId, userPic });
+    const notifData = postData.postBody.substring(0,50)
     try {
       await addPost.save();
+
+      await notifications.create({
+        user: userId,
+        userPosted,
+        title: `New post by ${userPosted}`,
+        type: 1,
+        text: `${notifData}...`,
+        read: false
+      })
+
+
       res.status(200).json("Added a post successfully");
     } catch (error) {
       console.log(error);
       res.status(409).json("Couldn't add a new post");
     }
   };
+
+
 
 export const getAllPosts = async (req, res) => {
   try {

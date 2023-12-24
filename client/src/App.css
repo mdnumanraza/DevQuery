@@ -32,3 +32,13 @@ body{
     padding: 5px;
   }
 }
+
+.btn-clear{
+  background: none;
+  outline: none;
+  border: none;
+}
+
+.ReactModal__Content{
+  margin-top: 40px;
+}

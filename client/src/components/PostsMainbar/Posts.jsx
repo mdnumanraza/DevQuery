@@ -19,6 +19,7 @@ import dUser from '../../assets/duser.png'
 import deleteBtn from '../../assets/delete.svg'
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import  {hateWords} from '../../assets/badWords'
 
 const Posts = ({ post }) => {
   const [commentBody, setCommentBody] = useState("");
@@ -26,6 +27,7 @@ const Posts = ({ post }) => {
   const [like, setLike] = useState(likeoutline);
 
   const filter = new Filter();
+  filter.addWords(...hateWords);
 
   const dispatch = useDispatch();
 
@@ -193,7 +195,7 @@ const Posts = ({ post }) => {
                 (
                   <div onClick={toggleCommentDiv} style={{ cursor: "pointer" }}>
                    {(post.comment.length!==0 ) ?
-                    `Hide Comments}` : 'No comments'
+                    `Hide Comments` : 'No comments'
                   }
                 </div>
                 )

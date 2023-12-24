@@ -7,8 +7,15 @@ import AllRoutes from "./AllRoutes";
 import { fetchAllQuestions } from "./actions/question";
 import { fetchAllUsers } from "./actions/users";
 import { fetchAllPosts } from "./actions/post";
+import firebaseConfig from './firebase.config'
+
+import firebase from 'firebase/compat/app'
+
+firebase.initializeApp(firebaseConfig)
+
 
 function App() {
+
   const dispatch = useDispatch();
 
   useEffect(() => {

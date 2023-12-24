@@ -16,6 +16,7 @@ const AskQuestion = () => {
   const [userPic, setUserPic] = useState("")
   const [user, setUser] = useState("")
   const [flag, setFlag] = useState(true)
+  const [save, setSave] = useState(true);
 
   const dispatch = useDispatch();
   const User = useSelector((state) => state.currentUserReducer);
@@ -32,7 +33,8 @@ const AskQuestion = () => {
   const handleSubmit = (e) => {
 
     e.preventDefault();
-    console.log(questionBody)
+    // console.log(questionBody)
+    setSave(true)
     if (User) {
     
       if (questionTitle && questionBody && questionTags) {
@@ -96,6 +98,8 @@ const AskQuestion = () => {
               setQuestionVid={setQuestionVid}
               quesCode={quesCode}
               setQuesCode={setQuesCode}
+              save={save}
+              setSave={setSave}
               />
             </label>
             <label htmlFor="ask-ques-tags">

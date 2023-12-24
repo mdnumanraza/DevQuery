@@ -7,10 +7,7 @@ import { Provider } from "react-redux";
 import { configureStore,applyMiddleware, compose } from '@reduxjs/toolkit'
 import thunk from "redux-thunk";
 import Reducers from "./reducers";
-import firebase from 'firebase/compat/app'
-import firebaseConfig from './firebase.config.js'
 
-firebase.initializeApp(firebaseConfig)
 
 const store = configureStore({reducer:Reducers}, compose(applyMiddleware(thunk)));
 

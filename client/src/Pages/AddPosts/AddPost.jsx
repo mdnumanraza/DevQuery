@@ -1,14 +1,16 @@
 import "./AddPost.css";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import AddFiles from "./AddFiles";
-import icon from "../../assets/icon.png";
 import Filter from 'bad-words';
 import { addPost } from "../../actions/post";
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-
+import { hateWords } from "../../assets/badWords";
+import io from 'socket.io-client';
+import Notifications from "./Notifications";
+import { apiurl } from "../../api";
 
 const AddPost = () => {
   const [postBody, setPostBody] = useState("");
@@ -19,36 +21,32 @@ const AddPost = () => {
   const [picDiv, setPicDiv] = useState(false);
   const [vidDiv, setVidDiv] = useState(false);
   const [fileDiv, setFileDiv] = useState(false);
+
+  
+  const [notifications, setNotifications] = useState([]);
+  const [notificationCount, setNotificationCount] = useState(0);
+
+//   const fetchNotifications = async()=>{
+//     const response = await fetch(apiurl+'/posts/notification')
+//     const notifs = await response.json();
+//     if(response.ok){
+//       const notifArray = [...new Set(notifs)]
+//         setNotifications(notifArray);
+//         setNotificationCount(notifArray.length)
+//         console.log(notifs)
+//     }else{
+//         console.log('error in fetching notifications')
+//     }
+// }
+// useEffect(()=>{
+//   fetchNotifications();
+// },[])
+
   const dispatch = useDispatch();
   const User = useSelector((state) => state.currentUserReducer);
   const navigate = useNavigate();
   const filter = new Filter();
-
-  // notifications -------------------------
-  const [permission, setPermission] = useState(null);
-
-  const requestPermission = () => {
-    Notification.requestPermission().then((result) => {
-      setPermission(result);
-    });
-  };
-
-  const showNotification = (nBody) => {
-    if (permission !== "granted") {
-      requestPermission();
-    } else if (permission === "granted") {
-      const notification = new Notification('Hey, check out the new post!', {
-        body: `${nBody.substring(0, 50)}...`,
-        icon: icon,
-      });
-
-      notification.onclick = () => {
-        navigate('/Posts');
-      };
-    }
-  };
-
-  // -----------------------------------
+  filter.addWords(...hateWords)
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -58,6 +56,7 @@ const AddPost = () => {
         if (filter.isProfane(postBody)) {
           const profanityWord = filter.clean(postBody);
           alert(` ${profanityWord} Abusive word detected, please remove abusive words and try again`);
+          toast.dark("Don't Say that 😳")
           setPostBody("");
           return;
         }
@@ -74,7 +73,16 @@ const AddPost = () => {
             navigate
           )
         );
-        showNotification(postBody)
+
+        const socket = io(apiurl);
+        socket.emit('newPost', {
+          postBody,
+          userPosted: User.result.name,
+          userPic: User.result.pic,
+        });
+
+
+        // showNotification(postBody)
         setPostBody("");
         setPostImg("");
         setPostVid("");
@@ -98,7 +106,21 @@ const AddPost = () => {
     <div className="">
       <ToastContainer/>
       <div className="">
+        <div style={{display:'flex', justifyContent:'space-between'}}>
+
         <h1>Add your public Post</h1>
+
+        <div className="notif">
+          <Notifications 
+          navigate={navigate}
+          notifications={notifications}
+          setNotifications={setNotifications}
+          notificationCount={notificationCount}
+          setNotificationCount={setNotificationCount}
+          // fetchNotifications={fetchNotifications}
+          />
+        </div>
+        </div>
         <form onSubmit={handleSubmit}>
           <div className="ask-form-container">
             <label htmlFor="ask-ques-body">

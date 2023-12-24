@@ -14,6 +14,8 @@ API.interceptors.request.use((req) => {
   return req;
 });
 
+// export const apiurl = "http://localhost:5000"
+export const apiurl =  "https://stack-overflow-clone-tau.vercel.app/"
 export const logIn = (authData) => API.post("/user/login", authData);
 export const signUp = (authData) => API.post("/user/signup", authData);
 

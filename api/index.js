@@ -1,4 +1,11 @@
 import express from 'express';
+//socket io
+// import http from 'http';
+// import socketIO from 'socket.io';
+// import socketIOConfig from './controllers/socketio.js';
+
+
+
 import cors from 'cors';
 import dotenv from 'dotenv';
 
@@ -8,6 +15,7 @@ import answerRoutes from './routes/Answers.js';
 import PostRoutes from './routes/Posts.js';
 import CommentRoutes from './routes/Comments.js';
 import connectDB from './connectMongoDb.js';
+
 
 dotenv.config();
 connectDB();
@@ -20,7 +28,21 @@ app.use(
       origin: ["https://numan-stackoverflow.vercel.app/","http://localhost:3000"] ,
       credentials: true,
     })
-  );
+);
+
+//socket io for notification
+import { createServer } from "http";
+import { Server } from "socket.io";
+import { socketiofunc } from './controllers/socketio.js';
+
+const httpServer = createServer(app);
+const io = new Server(httpServer, {
+  transports: ['polling'],
+  cors: { origin: ["https://numan-stackoverflow.vercel.app/", "http://localhost:3000"] },
+});
+socketiofunc(io);
+
+
 
 
 app.use("/user", userRoutes);
@@ -30,12 +52,19 @@ app.use("/posts", PostRoutes);
 app.use("/comment", CommentRoutes);
 
 
+
+
+
+
 app.get('/', (req, res) => {
     res.send("This is a stack overflow clone API, <h1> go to <i> /questions/get </i> to get all questions </h1>")
 });
 
 const PORT = process.env.PORT || 5000;
 
-app.listen(PORT, () => {
-    console.log(`Server running on port ${PORT}`);
-});
+// app.listen(PORT, () => {
+//     console.log(`Server running on port ${PORT}`);
+// });
+httpServer.listen(PORT, () => {
+  console.log(`✅ Application running on port: ${PORT}`);
+})
