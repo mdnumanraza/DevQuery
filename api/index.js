@@ -1,10 +1,4 @@
 import express from 'express';
-//socket io
-// import http from 'http';
-// import socketIO from 'socket.io';
-// import socketIOConfig from './controllers/socketio.js';
-
-
 
 import cors from 'cors';
 import dotenv from 'dotenv';
@@ -40,6 +34,7 @@ const io = new Server(httpServer, {
   transports: ['polling'],
   cors: {
     origin: "*",
+    credentials: true,
     methods: ["GET", "POST","PUT","PATCH","DELETE"]
   }
 });
