@@ -38,7 +38,10 @@ import { socketiofunc } from './controllers/socketio.js';
 const httpServer = createServer(app);
 const io = new Server(httpServer, {
   transports: ['polling'],
-  cors: { origin: '*' },
+  cors: {
+    origin: "https://numan-stackoverflow.vercel.app/",
+    methods: ["GET", "POST","PUT","PATCH","DELETE"]
+  }
 });
 socketiofunc(io);
 
