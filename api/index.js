@@ -1,10 +1,4 @@
 import express from 'express';
-//socket io
-// import http from 'http';
-// import socketIO from 'socket.io';
-// import socketIOConfig from './controllers/socketio.js';
-
-
 
 import cors from 'cors';
 import dotenv from 'dotenv';
@@ -25,7 +19,7 @@ app.use(express.urlencoded({ limit: '30mb', extended: true }));
 
 app.use(
     cors({
-      origin: ["https://numan-stackoverflow.vercel.app/","http://localhost:3000"] ,
+      origin: '*' ,
       credentials: true,
     })
 );
@@ -38,7 +32,11 @@ import { socketiofunc } from './controllers/socketio.js';
 const httpServer = createServer(app);
 const io = new Server(httpServer, {
   transports: ['polling'],
-  cors: { origin: ["https://numan-stackoverflow.vercel.app/", "http://localhost:3000"] },
+  cors: {
+    origins: "*",
+    credentials: true,
+    methods: ["GET", "POST","PUT","PATCH","DELETE"]
+  } 
 });
 socketiofunc(io);
 
