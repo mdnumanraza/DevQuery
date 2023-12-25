@@ -32,11 +32,23 @@ import { socketiofunc } from './controllers/socketio.js';
 const httpServer = createServer(app);
 const io = new Server(httpServer, {
   transports: ['polling'],
-  cors: {
-    origin: "*",
-    credentials: true,
-    methods: ["GET", "POST","PUT","PATCH","DELETE"]
-  }
+  // cors: {
+  //   origins: "*",
+  //   credentials: true,
+  //   methods: ["GET", "POST","PUT","PATCH","DELETE"]
+  // }
+     origins: ["*"],
+
+  // optional, useful for custom headers
+  handlePreflightRequest: (req, res) => {
+    res.writeHead(200, {
+      "Access-Control-Allow-Origin": "*",
+      "Access-Control-Allow-Methods": "GET,POST,PUT,PATCH,DELETE",
+      "Access-Control-Allow-Credentials": true
+    });
+    res.end();
+
+    
 });
 socketiofunc(io);
 
