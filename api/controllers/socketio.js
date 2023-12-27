@@ -32,9 +32,7 @@ export const socketiofunc = (io) => {
           user: postData.userId,
           userPosted: postData.userPosted,
           title: `Posted by: ${postData.userPosted},`,
-          type: 1,
           text: `${postData.postBody.substring(0, 100)}...`,
-          read: false
         });
 
         // Broadcast the new notification to all connected clients

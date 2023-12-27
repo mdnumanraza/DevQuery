@@ -122,7 +122,7 @@ const QuestionsDetails = () => {
                         onClick={handleDownVote}
                       />
                     </div>
-                    <div style={{ width: "100%" }}>
+                    <div className="question-bd" style={{ width: "100%" }}>
                       <p className="question-body" dangerouslySetInnerHTML={{__html: question.questionBody}}></p>
                       <div className="question-details-tags">
                         {question.questionTags.map((tag) => (

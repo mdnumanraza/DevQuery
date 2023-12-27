@@ -15,7 +15,7 @@ const EditProfileForm = ({ currentUser, setSwitch }) => {
   const [name, setName] = useState(currentUser?.result?.name);
   const [about, setAbout] = useState(currentUser?.result?.about);
   const [pic, setPic] = useState(currentUser?.result?.pic);
-  const [tags, setTags] = useState([]);
+  const [tags, setTags] = useState([currentUser?.result?.tags]);
   const [load, setLoad] = useState(false);
   const [dp, setDp] = useState("");
   
@@ -184,6 +184,7 @@ const EditProfileForm = ({ currentUser, setSwitch }) => {
           <input
             type="text"
             id="tags"
+            
             onChange={(e) => setTags(e.target.value.split(" "))}
           />
         </label>

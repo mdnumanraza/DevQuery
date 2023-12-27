@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import io from 'socket.io-client';
+import {io} from 'socket.io-client';
 import icon from "../../assets/icon.png";
 import { FaBell } from 'react-icons/fa';
 import Modal from 'react-modal';
@@ -91,20 +91,17 @@ const Notifications = (
     }
   };
   
-
   
-
   useEffect(() => {
-    // Connect to the Socket.io server
-    const socket = io(apiurl);
-
+    
+      // Connect to the Socket.io server
+      const socket = io("http://localhost:5000");
     // Set up event listener for 'newNotification'
     socket.on('newNotification', (newNotification) => {
-      setNotifications((prevNotifications) => [newNotification, ...new Set(prevNotifications)]);
+      setNotifications((prevNotifications) => [newNotification, ...prevNotifications]);
       console.log(newNotification);
       showNotification(newNotification.text);
-      toast.success('new post by '+ newNotification.userPosted)
-      setNotificationCount(notifications.length())
+      toast.success('new post by '+ newNotification.userPosted +"   - " + newNotification.text);
     });
 
     // Clean up the socket connection on component unmount

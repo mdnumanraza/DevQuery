@@ -8,7 +8,7 @@ import { addPost } from "../../actions/post";
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { hateWords } from "../../assets/badWords";
-import io from 'socket.io-client';
+import {io} from 'socket.io-client';
 import Notifications from "./Notifications";
 import { apiurl } from "../../api";
 
@@ -25,7 +25,9 @@ const AddPost = () => {
   
   const [notifications, setNotifications] = useState([]);
   const [notificationCount, setNotificationCount] = useState(0);
-
+  
+  const socket = io("http://localhost:5000");
+  
 //   const fetchNotifications = async()=>{
 //     const response = await fetch(apiurl+'/posts/notification')
 //     const notifs = await response.json();
@@ -73,8 +75,8 @@ const AddPost = () => {
             navigate
           )
         );
+        const socket = io("http://localhost:5000", { transports: ['websocket', 'polling'] });
 
-        const socket = io(apiurl);
         socket.emit('newPost', {
           postBody,
           userPosted: User.result.name,
@@ -105,10 +107,10 @@ const AddPost = () => {
   return (
     <div className="">
       <ToastContainer/>
-      <div className="">
-        <div style={{display:'flex', justifyContent:'space-between'}}>
+      <div className="add-posts">
+        <div  className="post-head" style={{display:'flex', justifyContent:'space-between'}}>
 
-        <h1>Add your public Post</h1>
+        <h1 className="post-h1">Add your public Post</h1>
 
         <div className="notif">
           <Notifications 

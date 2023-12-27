@@ -42,13 +42,13 @@ const Navbar = ({ handleSlideIn }) => {
           <Link to="/" className="nav-item nav-logo">
             <img src={logo} alt="logo" />
           </Link>
-          <Link to="/" className="nav-item nav-btn res-nav">
+          <Link to="/" className="nav-item nav-btn res-nav abt">
             About
           </Link>
-          <Link to="/" className="nav-item nav-btn res-nav">
+          <Link to="/" className="nav-item nav-btn res-nav abt">
             Products
           </Link>
-          <Link to="/Addpost" className="nav-item nav-btn res-nav">
+          <Link to="/Posts" className="nav-item nav-btn res-nav">
             Public Space
           </Link>
           <form>

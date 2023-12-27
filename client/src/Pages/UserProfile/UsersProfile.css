@@ -79,3 +79,21 @@
   margin-left: 10px;
   cursor: pointer;
 }
+
+@media screen and (max-width:500px) {
+  .edit-profile-btn{
+    padding: 7px 6px;
+    margin-top: 10px;
+  }
+  .edit-profile-form label input, .edit-profile-form label textarea{
+    width: 80%;
+  }
+}
+
+@media screen and (max-width:420px) {
+  .edit-profile-btn{
+    margin-top: 10px;
+    padding: 7px 6px;
+    font-size: 0.8rem;
+  }
+}

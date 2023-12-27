@@ -145,6 +145,18 @@
   width: 400px;
 }
 
+@media screen and (max-width: 460px) {
+  .q-media .qimg{
+    width: 300px;
+  }
+  .q-media video{
+    width: 300px;
+  }
+  .question-bd{
+    width: 85% !important;
+  }
+}
+
 @media screen and (max-width: 420px) {
   .question-details-page {
     width: calc(100% - 25px);
@@ -168,7 +180,7 @@
   }
   .question-details-container-2 {
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
     align-items: center;
     flex-wrap: nowrap;
 }

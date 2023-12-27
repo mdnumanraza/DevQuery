@@ -97,4 +97,16 @@
   .display-question-container .display-votes-ans {
     padding: 10px;
   }
+  .main-bar-header{
+    margin-top: 20px;
+  }
+}
+
+@media screen and (max-width: 360px) {
+  .main-bar-header{
+    margin-top: 20px;
+  }
+  .main-bar-header h1{
+    font-size: 25px;
+  }
 }

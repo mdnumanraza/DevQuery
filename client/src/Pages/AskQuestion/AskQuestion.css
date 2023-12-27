@@ -93,7 +93,13 @@
     width: fit-content;
    
   }
- 
+}
+
+@media screen and (max-width: 400px) {
+  .ask-ques-container h1{
+    font-size: 25px;
+  }
+
 }
 
 .pd{

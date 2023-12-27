@@ -31,27 +31,20 @@ import { socketiofunc } from './controllers/socketio.js';
 
 const httpServer = createServer(app);
 const io = new Server(httpServer, {
-  transports: ['polling'],
+  transports: ['websocket', 'polling'],
   cors: {
-    origins: "*",
+    origin: "*",
     credentials: true,
-    methods: ["GET", "POST","PUT","PATCH","DELETE"]
+    methods: ["GET", "POST"]
   } 
 });
 socketiofunc(io);
-
-
-
 
 app.use("/user", userRoutes);
 app.use("/questions", questionRoutes);
 app.use("/answer", answerRoutes);
 app.use("/posts", PostRoutes);  
 app.use("/comment", CommentRoutes);
-
-
-
-
 
 
 app.get('/', (req, res) => {

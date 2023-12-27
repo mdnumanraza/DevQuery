@@ -93,7 +93,19 @@
     width: fit-content;
    
   }
+  .post-h1{
+    font-size: 25px;
+  }
+  .add-posts{
+    margin-top: 10px;
+  }
  
+}
+
+@media screen and (max-width: 320px) {
+  .post-head .notif{
+    scale: 0.8;
+   }
 }
 
 .pd{
