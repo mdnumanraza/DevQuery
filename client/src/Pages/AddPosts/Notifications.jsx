@@ -104,10 +104,6 @@ const Notifications = (
       toast.success('new post by '+ newNotification.userPosted +"   - " + newNotification.text);
     });
 
-    // Clean up the socket connection on component unmount
-    return () => {
-      socket.disconnect();
-    };
   }, []);
 
   // -----------------------------------
