@@ -33,8 +33,7 @@ const httpServer = createServer(app);
 const io = new Server(httpServer, {
   // transports: ['websocket', 'polling'],
   cors: {
-    origin: "*",
-    credentials: true,
+    origin: "https://numan-stackoverflow.vercel.app/",
     methods: ["GET", "POST"]
   } 
 });
