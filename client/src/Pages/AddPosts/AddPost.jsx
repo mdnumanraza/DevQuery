@@ -75,7 +75,7 @@ const AddPost = () => {
             navigate
           )
         );
-        const socket = io("http://localhost:5000", { transports: ['websocket', 'polling'] });
+        const socket = io(apiurl);
 
         socket.emit('newPost', {
           postBody,
