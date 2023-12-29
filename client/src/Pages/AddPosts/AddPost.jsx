@@ -22,11 +22,10 @@ const AddPost = () => {
   const [vidDiv, setVidDiv] = useState(false);
   const [fileDiv, setFileDiv] = useState(false);
 
-  
+
   const [notifications, setNotifications] = useState([]);
   const [notificationCount, setNotificationCount] = useState(0);
   
-  const socket = io("http://localhost:5000");
   
 //   const fetchNotifications = async()=>{
 //     const response = await fetch(apiurl+'/posts/notification')
@@ -43,6 +42,28 @@ const AddPost = () => {
 // useEffect(()=>{
 //   fetchNotifications();
 // },[])
+
+  // const sendNotif = async(notifData)=>{
+    
+  //  try {
+  //    const response = await fetch(apiurl+'posts/addnotif',{
+  //      method:'POST',
+  //      credentials:true,
+  //      headers: {
+  //        'Content-Type': 'application/json',
+  //      },
+  //      body: JSON.stringify(notifData),
+  //    })
+ 
+  //    if(response.ok){
+  //      console.log("notif sent");
+  //    }
+  //  } catch (error) {
+  //     console.log(error);
+  //  }
+    
+
+  // }
 
   const dispatch = useDispatch();
   const User = useSelector((state) => state.currentUserReducer);
@@ -75,7 +96,7 @@ const AddPost = () => {
             navigate
           )
         );
-        const socket = io("http://localhost:5000", { transports: ['websocket', 'polling'] });
+        const socket = io(apiurl);
 
         socket.emit('newPost', {
           postBody,
@@ -83,6 +104,14 @@ const AddPost = () => {
           userPic: User.result.pic,
         });
 
+
+
+            // const notifData = {
+            //   body:postBody,
+            //   sender:User.result.name
+            // }
+
+            // sendNotif(notifData);
 
         // showNotification(postBody)
         setPostBody("");

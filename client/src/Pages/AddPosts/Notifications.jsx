@@ -95,7 +95,7 @@ const Notifications = (
   useEffect(() => {
     
       // Connect to the Socket.io server
-      const socket = io("http://localhost:5000");
+      const socket = io(apiurl);
     // Set up event listener for 'newNotification'
     socket.on('newNotification', (newNotification) => {
       setNotifications((prevNotifications) => [newNotification, ...prevNotifications]);
@@ -104,10 +104,7 @@ const Notifications = (
       toast.success('new post by '+ newNotification.userPosted +"   - " + newNotification.text);
     });
 
-    // Clean up the socket connection on component unmount
-    return () => {
-      socket.disconnect();
-    };
+    
   }, []);
 
   // -----------------------------------
