@@ -26,6 +26,7 @@ const AddPost = () => {
   const [notifications, setNotifications] = useState([]);
   const [notificationCount, setNotificationCount] = useState(0);
   
+  const socket = io(apiurl);
   
 //   const fetchNotifications = async()=>{
 //     const response = await fetch(apiurl+'/posts/notification')

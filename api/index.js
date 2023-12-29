@@ -31,7 +31,7 @@ import { socketiofunc } from './controllers/socketio.js';
 
 const httpServer = createServer(app);
 const io = new Server(httpServer, {
-  transports: ['websocket', 'polling'],
+  // transports: ['websocket', 'polling'],
   cors: {
     origin: ["http://localhost:3000","https://numan-stackoverflow.vercel.app/"],
     credentials: true,
