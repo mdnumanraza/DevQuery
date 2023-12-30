@@ -6,6 +6,7 @@ import Modal from 'react-modal';
 import { apiurl } from "../../api";
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import Pusher from "pusher-js";
 
 const customStyles = {
     content: {
@@ -26,6 +27,7 @@ const Notifications = (
     setNotifications,
     notificationCount, 
     setNotificationCount,
+    handleSubmit
     // fetchNotifications
   }) => {
 
@@ -47,6 +49,7 @@ const Notifications = (
 
       // notifications -------------------------
   const [permission, setPermission] = useState(null);
+  const [conn , setConn] = useState(false)
 
   const requestPermission = () => {
     Notification.requestPermission().then((result) => {
@@ -67,6 +70,7 @@ const Notifications = (
         body: `${nBody}`,
         icon: icon,
       });
+      setConn(true)
 
       notification.onclick = () => {
         navigate('/Posts');
@@ -90,22 +94,47 @@ const Notifications = (
       console.error('Error in deletenotifs:', error);
     }
   };
-  
+
   
   useEffect(() => {
+
+    const pusher = new Pusher('a3716fa39eee3c4cf31e', {
+      cluster: 'ap2',
+      encrypted: true,
+    });
+    const channel = pusher.subscribe('posts');
+    
+
+    // Bind the event only once
+    channel.bind('new-post', (newNotification) => {
+      setNotifications((prevNotifications) => [newNotification, ...prevNotifications]);
+      showNotification(newNotification.text);
+      toast.dark('new post by ' + newNotification.user+ ' - ' + newNotification.text);
+      console.log('New Post:', newNotification);
+    
+  });
+
+    // Clean up the event listener on component unmount
+    return (() => {
+			pusher.unbind('new-post')
+			
+		})
+
+  }, []); 
+  
+  // useEffect(() => {
     
       // Connect to the Socket.io server
-      const socket = io(apiurl);
+      // const socket = io(apiurl);
     // Set up event listener for 'newNotification'
-    socket.on('newNotification', (newNotification) => {
-      setNotifications((prevNotifications) => [newNotification, ...prevNotifications]);
-      console.log(newNotification);
-      showNotification(newNotification.text);
-      toast.success('new post by '+ newNotification.userPosted +"   - " + newNotification.text);
-    });
+    // socket.on('newNotification', (newNotification) => {
+    //   setNotifications((prevNotifications) => [newNotification, ...prevNotifications]);
+    //   console.log(newNotification);
+    //   showNotification(newNotification.text);
+    //   toast.success('new post by '+ newNotification.userPosted +"   - " + newNotification.text);
+    // });
 
-    
-  }, []);
+  // }, []);
 
   // -----------------------------------
 

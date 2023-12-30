@@ -12,6 +12,9 @@ import {io} from 'socket.io-client';
 import Notifications from "./Notifications";
 import { apiurl } from "../../api";
 
+import axios from 'axios';
+import Pusher from 'pusher-js';
+
 const AddPost = () => {
   const [postBody, setPostBody] = useState("");
   const [postImg, setPostImg] = useState("");
@@ -26,7 +29,7 @@ const AddPost = () => {
   const [notifications, setNotifications] = useState([]);
   const [notificationCount, setNotificationCount] = useState(0);
   
-  const socket = io(apiurl);
+  // const socket = io(apiurl);
   
 //   const fetchNotifications = async()=>{
 //     const response = await fetch(apiurl+'/posts/notification')
@@ -66,6 +69,16 @@ const AddPost = () => {
 
   // }
 
+  const handleGetNotifs = async (userPosted, postBody) => {
+    try {
+      await axios.post('/posts/notification', { userPosted, postBody });
+
+    } catch (error) {
+      console.error('Error posting:', error);
+    }
+  };
+
+
   const dispatch = useDispatch();
   const User = useSelector((state) => state.currentUserReducer);
   const navigate = useNavigate();
@@ -97,13 +110,14 @@ const AddPost = () => {
             navigate
           )
         );
-        const socket = io(apiurl);
+        handleGetNotifs( User.result.name, postBody)
+        // const socket = io(apiurl);
 
-        socket.emit('newPost', {
-          postBody,
-          userPosted: User.result.name,
-          userPic: User.result.pic,
-        });
+        // socket.emit('newPost', {
+        //   postBody,
+        //   userPosted: User.result.name,
+        //   userPic: User.result.pic,
+        // });
 
 
 
@@ -149,6 +163,7 @@ const AddPost = () => {
           setNotifications={setNotifications}
           notificationCount={notificationCount}
           setNotificationCount={setNotificationCount}
+          handleSubmit={handleSubmit}
           // fetchNotifications={fetchNotifications}
           />
         </div>
