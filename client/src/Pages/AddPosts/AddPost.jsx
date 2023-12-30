@@ -71,7 +71,7 @@ const AddPost = () => {
 
   const handleGetNotifs = async (userPosted, postBody) => {
     try {
-      await axios.post('/posts/notification', { userPosted, postBody });
+      await axios.post(apiurl + '/posts/notification', { userPosted, postBody });
 
     } catch (error) {
       console.error('Error posting:', error);
