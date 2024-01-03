@@ -1,12 +1,13 @@
 import React, { useState, useEffect } from "react";
-import {io} from 'socket.io-client';
 import icon from "../../assets/icon.png";
 import { FaBell } from 'react-icons/fa';
 import Modal from 'react-modal';
-import { apiurl } from "../../api";
+
+import firebase from 'firebase/compat/app'
+import 'firebase/compat/database'
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import Pusher from "pusher-js";
+
 
 const customStyles = {
     content: {
@@ -27,8 +28,6 @@ const Notifications = (
     setNotifications,
     notificationCount, 
     setNotificationCount,
-    handleSubmit
-    // fetchNotifications
   }) => {
 
   //modal----------------------------------
@@ -45,11 +44,7 @@ const Notifications = (
     function closeModal() {
       setIsOpen(false);
     }
-
-
-      // notifications -------------------------
   const [permission, setPermission] = useState(null);
-  const [conn , setConn] = useState(false)
 
   const requestPermission = () => {
     Notification.requestPermission().then((result) => {
@@ -59,7 +54,6 @@ const Notifications = (
 
   useEffect(()=>{
     requestPermission();
-    // fetchNotifications()
   },[])
 
   const showNotification = (nBody) => {
@@ -70,7 +64,6 @@ const Notifications = (
         body: `${nBody}`,
         icon: icon,
       });
-      setConn(true)
 
       notification.onclick = () => {
         navigate('/Posts');
@@ -78,66 +71,79 @@ const Notifications = (
     }
   };
 
-  const deletenotifs = async () => {
-    try {
-      const response = await fetch(apiurl + '/posts/notification', {
-        method: 'DELETE'
-      });
+  useEffect(() => {
+    // Set up Firebase Realtime Database listener
+    const notificationsRef = firebase.database().ref('notifications');
+    let initialLoad = true;
   
-      if (response.ok) {
-        console.log('Notifications cleared');
-        setNotificationCount(0);
-      } else {
-        console.log('Error clearing notifications:', response.statusText);
+    const handleData = (snapshot) => {
+      if (snapshot.val()  && !initialLoad ) {
+        const data = Object.values(snapshot.val());
+        const n = data.length-1;
+        const latestNotification = data[n];
+        addNotifLocal(latestNotification)
+        showNotification(latestNotification.postBody);
+        toast.dark('New post by ' + latestNotification.userPosted + ' - ' + latestNotification.postBody);
+        console.log('New Post:', data);
       }
-    } catch (error) {
-      console.error('Error in deletenotifs:', error);
+      if (initialLoad) {
+        initialLoad = false;
+      }
+    };
+  
+    notificationsRef.on('value', handleData);
+  
+
+    return () => {
+      notificationsRef.off('value', handleData);
+    };
+  }, []);
+  
+
+ useEffect(()=>{
+  const existingNotifs = JSON.parse(localStorage.getItem('Notifications')) || [];
+  setNotificationCount(existingNotifs.length);
+  setNotifications(existingNotifs);
+ },[])
+
+  const addNotifLocal = (notif)=>{
+    const existingNotifs = JSON.parse(localStorage.getItem('Notifications')) || [];
+    const newNotif = [...existingNotifs, notif];
+    localStorage.setItem('Notifications', JSON.stringify(newNotif));
+    setNotifications(newNotif);
+    setNotificationCount(newNotif.length)
+  }
+
+  const deleteNotifById = (id) => {
+    const existingNotifs = JSON.parse(localStorage.getItem('Notifications')) || [];
+  
+    const indexToDelete = existingNotifs.findIndex((notifs)=>notifs.id === id)
+  
+    if (indexToDelete !== -1) {
+      const updatedNotifs = [
+        ...existingNotifs.slice(0, indexToDelete),
+        ...existingNotifs.slice(indexToDelete + 1),
+      ];
+  
+      localStorage.setItem('Notifications', JSON.stringify(updatedNotifs));
+      setNotifications(updatedNotifs);
+      setNotificationCount(updatedNotifs.length);
+  
+      console.log('Notification deleted successfully');
+    } else {
+      console.log('Notification not found');
     }
   };
 
+  const deleteAllNotif = ()=>{
+    const empty = [];
+    localStorage.setItem('Notifications', JSON.stringify(empty));
+    setNotificationCount(0);
+    setNotifications([]);
+  }
   
-  useEffect(() => {
 
-    const pusher = new Pusher('a3716fa39eee3c4cf31e', {
-      cluster: 'ap2',
-      encrypted: true,
-    });
-    const channel = pusher.subscribe('posts');
-    
-
-    // Bind the event only once
-    channel.bind('new-post', (newNotification) => {
-      setNotifications((prevNotifications) => [newNotification, ...prevNotifications]);
-      showNotification(newNotification.text);
-      toast.dark('new post by ' + newNotification.user+ ' - ' + newNotification.text);
-      console.log('New Post:', newNotification);
-    
-  });
-
-    // Clean up the event listener on component unmount
-    return (() => {
-			pusher.unbind('new-post')
-			
-		})
-
-  }, []); 
-  
-  // useEffect(() => {
-    
-      // Connect to the Socket.io server
-      // const socket = io(apiurl);
-    // Set up event listener for 'newNotification'
-    // socket.on('newNotification', (newNotification) => {
-    //   setNotifications((prevNotifications) => [newNotification, ...prevNotifications]);
-    //   console.log(newNotification);
-    //   showNotification(newNotification.text);
-    //   toast.success('new post by '+ newNotification.userPosted +"   - " + newNotification.text);
-    // });
-
-  // }, []);
-
-  // -----------------------------------
-
+ 
 
   return (
     <div style={{marginTop:'35px'}}>
@@ -173,18 +179,26 @@ const Notifications = (
       >
         <div style={{display:'flex', justifyContent:'space-between'}}>
         <button onClick={closeModal} style={{marginTop:'35px'}}>close</button>
-        <button onClick={deletenotifs} style={{marginTop:'35px'}}>Delete all</button>
+        <button className="btn-clear" onClick={deleteAllNotif} style={{marginTop:'35px'}}>Clear all</button>
 
         </div>
         <h2>{notifications.length>0 ?'Notifications':'no notifications'}</h2>
       <ul className="notification-list">
-        {notifications?.map((notification) => (
-           <li key={notification._id} className="notification-item">
-           <span className="notification-title">{notification.title}</span> 
-           <br />
-           <span className="notification-text">{notification.text}</span>
+        {notifications?.map((notif) => (
+           <li key={notif.id} className="notification-item">
+            
+            <div className="leftn">
+              <span className="notification-title">{notif.userPosted}</span> 
+              <br />
+              <span className="notification-text">{notif.postBody}</span>
+            </div>
+
+            <div className="rightn">
+              <button  className="btn-clear" onClick={()=>deleteNotifById(notif.id)}>❌</button>
+            </div>
          </li>
         ))}
+        
       </ul>
         
       </Modal>

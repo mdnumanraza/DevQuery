@@ -9,8 +9,8 @@ import answerRoutes from './routes/Answers.js';
 import PostRoutes from './routes/Posts.js';
 import CommentRoutes from './routes/Comments.js';
 import connectDB from './connectMongoDb.js';
-import Pusher from 'pusher'
-import Notification from "./models/notifications.js";
+// import Pusher from 'pusher'
+// import Notification from "./models/notifications.js";
 
 
 dotenv.config();
@@ -42,28 +42,28 @@ app.use(
 // });
 // socketiofunc(io);
 
-const pusher = new Pusher({
-  appId: process.env.app_id,
-  key: process.env.key,
-  secret: process.env.secret,
-  cluster: process.env.cluster,
-  useTLS: true,
-});
+// const pusher = new Pusher({
+//   appId: process.env.app_id,
+//   key: process.env.key,
+//   secret: process.env.secret,
+//   cluster: process.env.cluster,
+//   useTLS: true,
+// });
 
-app.post('/posts/notification', async(req, res) => {
-  const { userPosted, postBody } = req.body;
+// app.post('/posts/notification', async(req, res) => {
+//   const { userPosted, postBody } = req.body;
 
-  const newNotification = await Notification.create({
-    user: userPosted,
-    title: `Posted by: ${userPosted},`,
-    text: `${postBody.substring(0, 100)}...`,
-  });
+//   const newNotification = await Notification.create({
+//     user: userPosted,
+//     title: `Posted by: ${userPosted},`,
+//     text: `${postBody.substring(0, 100)}...`,
+//   });
 
-  // Trigger a 'new-post' event for all connected clients
-  pusher.trigger('posts', 'new-post',  newNotification);
+//   // Trigger a 'new-post' event for all connected clients
+//   pusher.trigger('posts', 'new-post',  newNotification);
 
-  res.status(200).json({ message: 'Post added successfully' });
-});
+//   res.status(200).json({ message: 'Post added successfully' });
+// });
 
 
 

@@ -8,12 +8,10 @@ import { addPost } from "../../actions/post";
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { hateWords } from "../../assets/badWords";
-import {io} from 'socket.io-client';
-import Notifications from "./Notifications";
-import { apiurl } from "../../api";
 
-import axios from 'axios';
-import Pusher from 'pusher-js';
+import firebase from 'firebase/compat/app'
+import Notifications from "./Notifications";
+
 
 const AddPost = () => {
   const [postBody, setPostBody] = useState("");
@@ -29,52 +27,18 @@ const AddPost = () => {
   const [notifications, setNotifications] = useState([]);
   const [notificationCount, setNotificationCount] = useState(0);
   
-  // const socket = io(apiurl);
-  
-//   const fetchNotifications = async()=>{
-//     const response = await fetch(apiurl+'/posts/notification')
-//     const notifs = await response.json();
-//     if(response.ok){
-//       const notifArray = [...new Set(notifs)]
-//         setNotifications(notifArray);
-//         setNotificationCount(notifArray.length)
-//         console.log(notifs)
-//     }else{
-//         console.log('error in fetching notifications')
-//     }
-// }
-// useEffect(()=>{
-//   fetchNotifications();
-// },[])
-
-  // const sendNotif = async(notifData)=>{
-    
-  //  try {
-  //    const response = await fetch(apiurl+'posts/addnotif',{
-  //      method:'POST',
-  //      credentials:true,
-  //      headers: {
-  //        'Content-Type': 'application/json',
-  //      },
-  //      body: JSON.stringify(notifData),
-  //    })
- 
-  //    if(response.ok){
-  //      console.log("notif sent");
-  //    }
-  //  } catch (error) {
-  //     console.log(error);
-  //  }
-    
-
-  // }
 
   const handleGetNotifs = async (userPosted, postBody) => {
     try {
-      await axios.post(apiurl + '/posts/notification', { userPosted, postBody });
+      const id = Math.random()*1000;
+      const notificationData = {userPosted,postBody,id}
+      // Save data to Firebase Realtime Database
+      const notificationsRef = firebase.database().ref('notifications');
+      await notificationsRef.push(notificationData);
 
+      console.log('Notification saved successfully'+ userPosted +" "+ postBody + "\n" +id);
     } catch (error) {
-      console.error('Error posting:', error);
+      console.log('Error saving notification:', error);
     }
   };
 
@@ -92,8 +56,8 @@ const AddPost = () => {
       if (postBody) {
         if (filter.isProfane(postBody)) {
           const profanityWord = filter.clean(postBody);
-          alert(` ${profanityWord} Abusive word detected, please remove abusive words and try again`);
-          toast.dark("Don't Say that 😳")
+          alert(` ${profanityWord} Abusive or hateful word detected ⚠`);
+          toast.dark("Please don't use any hateful words")
           setPostBody("");
           return;
         }
@@ -110,25 +74,9 @@ const AddPost = () => {
             navigate
           )
         );
-        handleGetNotifs( User.result.name, postBody)
-        // const socket = io(apiurl);
+        const postData = postBody.substring(0,20);
+        handleGetNotifs( User.result.name, postData)
 
-        // socket.emit('newPost', {
-        //   postBody,
-        //   userPosted: User.result.name,
-        //   userPic: User.result.pic,
-        // });
-
-
-
-            // const notifData = {
-            //   body:postBody,
-            //   sender:User.result.name
-            // }
-
-            // sendNotif(notifData);
-
-        // showNotification(postBody)
         setPostBody("");
         setPostImg("");
         setPostVid("");
@@ -164,7 +112,6 @@ const AddPost = () => {
           notificationCount={notificationCount}
           setNotificationCount={setNotificationCount}
           handleSubmit={handleSubmit}
-          // fetchNotifications={fetchNotifications}
           />
         </div>
         </div>
