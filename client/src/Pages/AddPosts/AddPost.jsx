@@ -61,7 +61,7 @@ const AddPost = () => {
         // hate ful speech detection
         const toxicityScore = await postAnalyzer(postBody);
         console.log(toxicityScore);
-        if(toxicityScore>0.5){
+        if(toxicityScore>0.13){
           alert(` hateful speech detected ⚠`);
           toast.dark("Please don't use any hateful speech")
           setPostBody("");

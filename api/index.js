@@ -21,7 +21,7 @@ app.use(express.urlencoded({ limit: '30mb', extended: true }));
 
 app.use(
     cors({
-      origin:[ "https://numan-stackoverflow.vercel.app/" , "https://localhost:3000/" ],
+      origin:"https://numan-stackoverflow.vercel.app/" ,
       credentials: true,
     })
 );
