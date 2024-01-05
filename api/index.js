@@ -21,7 +21,8 @@ app.use(express.urlencoded({ limit: '30mb', extended: true }));
 
 app.use(
     cors({
-      origin:["https://numan-stackoverflow.vercel.app", "*" ],
+      origin: "*" ,
+      methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
       credentials: true,
     })
 );

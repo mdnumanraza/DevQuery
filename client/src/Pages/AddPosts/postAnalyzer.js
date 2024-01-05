@@ -17,7 +17,7 @@ const postAnalyzer = async (text) => {
 
     return response.data.attributeScores.TOXICITY.summaryScore.value;
   } catch (error) {
-    console.error('Error analyzing text:', error);
+    alert('your text cannot be processed... please add more content ')
     throw error;
   }
 };

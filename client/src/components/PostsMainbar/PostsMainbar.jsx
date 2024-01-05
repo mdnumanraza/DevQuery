@@ -11,7 +11,7 @@ const PostsMainbar = () => {
   const navigate = useNavigate();
 
   const postsList = useSelector((state) => state.postsReducer);
-  console.log(postsList)
+  // console.log(postsList)
 
   const checkAuth = () => {
     if (user === null) {

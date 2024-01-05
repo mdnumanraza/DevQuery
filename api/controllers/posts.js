@@ -23,7 +23,7 @@ export const AddPost = async (req, res) => {
 
 export const getAllPosts = async (req, res) => {
   try {
-    const postList = await Post.find().sort({ askedOn: -1 });
+    const postList = await Post.find().sort({ askedOn: 1 });
     res.status(200).json(postList);
   } catch (error) {
     res.status(404).json({ message: error.message });
