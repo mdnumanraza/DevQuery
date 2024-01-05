@@ -11,6 +11,7 @@ import { hateWords } from "../../assets/badWords";
 
 import firebase from 'firebase/compat/app'
 import Notifications from "./Notifications";
+import postAnalyzer from "./postAnalyzer";
 
 
 const AddPost = () => {
@@ -36,7 +37,7 @@ const AddPost = () => {
       const notificationsRef = firebase.database().ref('notifications');
       await notificationsRef.push(notificationData);
 
-      console.log('Notification saved successfully'+ userPosted +" "+ postBody + "\n" +id);
+      console.log('Notification saved successfully\n'+ userPosted +" "+ postBody + "\n" +id);
     } catch (error) {
       console.log('Error saving notification:', error);
     }
@@ -49,15 +50,29 @@ const AddPost = () => {
   const filter = new Filter();
   filter.addWords(...hateWords)
 
-  const handleSubmit = (e) => {
+
+
+  const handleSubmit = async(e) => {
     e.preventDefault();
 
     if (User) {
       if (postBody) {
+        
+        // hate ful speech detection
+        const toxicityScore = await postAnalyzer(postBody);
+        console.log(toxicityScore);
+        if(toxicityScore>0.5){
+          alert(` hateful speech detected ⚠`);
+          toast.dark("Please don't use any hateful speech")
+          setPostBody("");
+          return
+        }
+
+        //abusiv words detection
         if (filter.isProfane(postBody)) {
           const profanityWord = filter.clean(postBody);
-          alert(` ${profanityWord} Abusive or hateful word detected ⚠`);
-          toast.dark("Please don't use any hateful words")
+          alert(` ${profanityWord} Abusive word detected ⚠`);
+          toast.dark("Please don't use any abusive words")
           setPostBody("");
           return;
         }

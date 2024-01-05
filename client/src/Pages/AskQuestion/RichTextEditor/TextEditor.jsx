@@ -17,9 +17,7 @@ const TextEditor = ({ setQuestionBody,
                       setQuestionVid,
                       quesCode,
                       setQuesCode ,
-                      setAnsCode,
-                      save, 
-                      setSave
+                      setAnsCode, 
 }) => {
   
   const [content, setContent] = useState('');
@@ -129,7 +127,7 @@ const TextEditor = ({ setQuestionBody,
       updateState(format, true);
   
       const newContent = editorRef.current.innerHTML;
-      setContent(newContent);
+      // setContent(newContent);
       setQuestionBody(newContent);
       return;
     }
@@ -144,7 +142,7 @@ const TextEditor = ({ setQuestionBody,
     updateState(format, !isFormatApplied);
   
     const newContent = editorRef.current.innerHTML;
-    setContent(newContent);
+    // setContent(newContent);
     setQuestionBody(newContent);
   };
   
@@ -187,7 +185,7 @@ const TextEditor = ({ setQuestionBody,
       document.execCommand('createLink', false, url);
     }
     const newContent = editorRef.current.innerHTML;
-    setContent(newContent);
+    // setContent(newContent);
     setQuestionBody(newContent);
   };
 
@@ -195,7 +193,7 @@ const TextEditor = ({ setQuestionBody,
   const handleListClick = (listType) => {
     document.execCommand(listType, false, null);
     const newContent = editorRef.current.innerHTML;
-    setContent(newContent);
+    // setContent(newContent);
     setQuestionBody(newContent);
   };
 
@@ -203,26 +201,17 @@ const TextEditor = ({ setQuestionBody,
   const handleTextAlignClick = (alignment) => {
     document.execCommand('justify' + alignment, false, null);
     const newContent = editorRef.current.innerHTML;
-    setContent(newContent);
+    // setContent(newContent);
     setQuestionBody(newContent);
   };
 
 
   const handleChange = () => {
-    setSave(true)
+    const newContent = editorRef.current.innerHTML;
+      // setContent(newContent);
+      setQuestionBody(newContent);
   };
   
-  
-  const savedata = ()=>{
-    
-    // if(save){
-      
-      const newContent = editorRef.current.innerHTML;
-      setContent(newContent);
-      setQuestionBody(newContent);
-      setSave(false)
-    // }
-  }
 
   return (
     <div>
@@ -234,27 +223,31 @@ const TextEditor = ({ setQuestionBody,
         style={{ cursor: 'pointer' }}
         onClick={() => handleFormatClick('bold')}
       >
-        <svg xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 -960 960 960" width="24"><path d="M272-200v-560h221q65 0 120 40t55 111q0 51-23 78.5T602-491q25 11 55.5 41t30.5 90q0 89-65 124.5T501-200H272Zm121-112h104q48 0 58.5-24.5T566-372q0-11-10.5-35.5T494-432H393v120Zm0-228h93q33 0 48-17t15-38q0-24-17-39t-44-15h-95v109Z"/></svg>
+        <svg xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 -960 960 960" width="24">
+          <path d="M272-200v-560h221q65 0 120 40t55 111q0 51-23 78.5T602-491q25 11 55.5 41t30.5 90q0 89-65 124.5T501-200H272Zm121-112h104q48 0 58.5-24.5T566-372q0-11-10.5-35.5T494-432H393v120Zm0-228h93q33 0 48-17t15-38q0-24-17-39t-44-15h-95v109Z" fill={`${bold?'#009dff':''}`}/></svg>
+
+       
+
 
       </button>
 
     {/* Italics button  */}
       <button
         type='button'
-        style={{  cursor: 'pointer' }}
+        style={{  cursor: 'pointer'}}
         onClick={() => handleFormatClick('italic')}
       >  
-      <svg xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 -960 960 960" width="24"><path d="M200-200v-100h160l120-360H320v-100h400v100H580L460-300h140v100H200Z"/></svg>
+      <svg xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 -960 960 960" width="24"><path d="M200-200v-100h160l120-360H320v-100h400v100H580L460-300h140v100H200Z" fill={`${italic?'#009dff':''}`}/></svg>
 
       </button>
 
     {/* underline button */}
       <button
         type='button'
-        style={{cursor: 'pointer' }}
+        style={{cursor: 'pointer'}}
         onClick={() => handleFormatClick('underline')}
         >       
-      <svg xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 -960 960 960" width="24"><path d="M200-120v-80h560v80H200Zm280-160q-101 0-157-63t-56-167v-330h103v336q0 56 28 91t82 35q54 0 82-35t28-91v-336h103v330q0 104-56 167t-157 63Z"/></svg>
+      <svg xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 -960 960 960" width="24"><path d="M200-120v-80h560v80H200Zm280-160q-101 0-157-63t-56-167v-330h103v336q0 56 28 91t82 35q54 0 82-35t28-91v-336h103v330q0 104-56 167t-157 63Z" fill={`${underline?'#009dff':''}`}/></svg>
 
       </button>
 
@@ -429,7 +422,6 @@ const TextEditor = ({ setQuestionBody,
         style={{ border: '1px solid #ccc', minHeight: '100px', padding: '10px' }}
         ref={editorRef}
         contentEditable={true}
-        onChange={savedata}
         onInput={handleChange}
         dangerouslySetInnerHTML={{ __html: content }}
         >
@@ -454,10 +446,6 @@ const TextEditor = ({ setQuestionBody,
       </>
       }
 
-      <button type='button' onClick={savedata} style={{marginTop:"20px"}}>
-      {save===false?"Saved ✔":"Save "}
-        
-      </button>
     </div>
   );
 };

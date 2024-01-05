@@ -83,7 +83,7 @@ const Notifications = (
         const latestNotification = data[n];
         addNotifLocal(latestNotification)
         showNotification(latestNotification.postBody);
-        toast.dark('New post by ' + latestNotification.userPosted + ' - ' + latestNotification.postBody);
+        toast.dark('New post by ' + latestNotification.userPosted + ' \n - ' + latestNotification.postBody+'...');
         console.log('New Post:', data);
       }
       if (initialLoad) {
@@ -190,7 +190,7 @@ const Notifications = (
             <div className="leftn">
               <span className="notification-title">{notif.userPosted}</span> 
               <br />
-              <span className="notification-text">{notif.postBody}</span>
+              <span className="notification-text">{notif.postBody}...</span>
             </div>
 
             <div className="rightn">
