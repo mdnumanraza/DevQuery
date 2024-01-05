@@ -9,6 +9,7 @@ import Avatar from "../../components/Avatar/Avatar";
 import "./Navbar.css";
 import { setCurrentUser } from "../../actions/currentUser";
 import bars from "../../assets/bars-solid.svg";
+import Notifications from "../../Pages/AddPosts/Notifications";
 
 const Navbar = ({ handleSlideIn }) => {
   const dispatch = useDispatch();
@@ -42,12 +43,12 @@ const Navbar = ({ handleSlideIn }) => {
           <Link to="/" className="nav-item nav-logo">
             <img src={logo} alt="logo" />
           </Link>
-          <Link to="/" className="nav-item nav-btn res-nav abt">
+          {/* <Link to="/" className="nav-item nav-btn res-nav abt">
             About
-          </Link>
-          <Link to="/" className="nav-item nav-btn res-nav abt">
+          </Link> */}
+          {/* <Link to="/" className="nav-item nav-btn res-nav abt">
             Products
-          </Link>
+          </Link> */}
           <Link to="/Posts" className="nav-item nav-btn res-nav">
             Public Space
           </Link>
@@ -85,6 +86,7 @@ const Navbar = ({ handleSlideIn }) => {
                   {User?.result?.name.charAt(0).toUpperCase()}
                 </Link>
               </Avatar>}
+              <Notifications/>
               <button className="nav-item nav-links" onClick={handleLogout}>
                 Log out
               </button>

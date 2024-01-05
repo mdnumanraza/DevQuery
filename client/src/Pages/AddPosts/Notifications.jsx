@@ -22,13 +22,7 @@ const customStyles = {
   Modal.setAppElement('#root');
 
 
-const Notifications = (
-  { navigate,
-    notifications, 
-    setNotifications,
-    notificationCount, 
-    setNotificationCount,
-  }) => {
+const Notifications = ({ navigate }) => {
 
   //modal----------------------------------
     const [modalIsOpen, setIsOpen] = React.useState(false);
@@ -45,6 +39,8 @@ const Notifications = (
       setIsOpen(false);
     }
   const [permission, setPermission] = useState(null);
+  const [notifications, setNotifications] = useState([]);
+  const [notificationCount, setNotificationCount] = useState(0);
 
   const requestPermission = () => {
     Notification.requestPermission().then((result) => {
@@ -146,23 +142,24 @@ const Notifications = (
  
 
   return (
-    <div style={{marginTop:'35px'}}>
+    <div style={{marginTop:'10px'}}>
+      <ToastContainer/>
          <button className="btn-clear" onClick={openModal}>  
-            <FaBell size={30} />
+            <FaBell size={20} />
 
     {notificationCount>0 && (
         <div
           style={{
             position:'relative',
-            top:'-45px',
-            right:'-14px',
+            top:'-25px',
+            right:'-11px',
             backgroundColor: 'red',
             borderRadius:' 50%',
             padding: '2px',
             color:' white',
-            fontSize:' 12px',
-            width: '14px',
-            height: '14px',
+            fontSize:' 10px',
+            width: '10px',
+            height: '10px',
           }}
         >
           {notificationCount}

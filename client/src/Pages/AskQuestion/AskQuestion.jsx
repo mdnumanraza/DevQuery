@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
+import firebase from 'firebase/compat/app'
 
 import "./AskQuestion.css";
 import { askQuestion } from "../../actions/question";
@@ -23,6 +24,20 @@ const AskQuestion = () => {
  
   const navigate = useNavigate();
 
+  const handleGetNotifs = async (userPosted, postBody) => {
+    try {
+      const id = Math.random() * Math.floor(Math.random()*1000);
+      const notificationData = {userPosted,postBody,id}
+      // Save data to Firebase Realtime Database
+      const notificationsRef = firebase.database().ref('notifications');
+      await notificationsRef.push(notificationData);
+
+      console.log('Notification saved successfully\n'+ userPosted +" "+ postBody + "\n" +id);
+    } catch (error) {
+      console.log('Error saving notification:', error);
+    }
+  };
+
 
   if(User&& flag){
     setUserPic(User.result.pic)
@@ -38,6 +53,10 @@ const AskQuestion = () => {
     if (User) {
     
       if (questionTitle && questionBody && questionTags) {
+
+        const notifBody = questionTitle.substring(0,50);
+        handleGetNotifs(User.result.name,notifBody)
+        
         dispatch(
           askQuestion(
             {

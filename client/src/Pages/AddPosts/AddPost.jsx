@@ -23,15 +23,11 @@ const AddPost = () => {
   const [picDiv, setPicDiv] = useState(false);
   const [vidDiv, setVidDiv] = useState(false);
   const [fileDiv, setFileDiv] = useState(false);
-
-
-  const [notifications, setNotifications] = useState([]);
-  const [notificationCount, setNotificationCount] = useState(0);
   
 
   const handleGetNotifs = async (userPosted, postBody) => {
     try {
-      const id = Math.random()*1000;
+      const id = Math.random() * Math.floor(Math.random()*1000);
       const notificationData = {userPosted,postBody,id}
       // Save data to Firebase Realtime Database
       const notificationsRef = firebase.database().ref('notifications');
@@ -118,17 +114,6 @@ const AddPost = () => {
         <div  className="post-head" style={{display:'flex', justifyContent:'space-between'}}>
 
         <h1 className="post-h1">Add your public Post</h1>
-
-        <div className="notif">
-          <Notifications 
-          navigate={navigate}
-          notifications={notifications}
-          setNotifications={setNotifications}
-          notificationCount={notificationCount}
-          setNotificationCount={setNotificationCount}
-          handleSubmit={handleSubmit}
-          />
-        </div>
         </div>
         <form onSubmit={handleSubmit}>
           <div className="ask-form-container">
