@@ -66,7 +66,7 @@
 .format-btns{
   display: flex;
   gap: 10px;
-  background: rgba(167, 166, 166, 0.842);
+  background: #e2e2e2d7;
 }
 
 #ask-ques-body:focus{

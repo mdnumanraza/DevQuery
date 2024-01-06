@@ -61,6 +61,7 @@ const LeftSidebar = ({ slideIn, handleSlideIn }) => {
               <p>Tags</p>
             </NavLink>
           </button>
+          
           <button onClick={() => handleSlideIn()} className="nav-btn">
             <NavLink
               to="/Users"

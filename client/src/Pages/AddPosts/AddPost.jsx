@@ -54,6 +54,15 @@ const AddPost = () => {
 
     if (User) {
       if (postBody) {
+
+        //abusiv words detection
+        if (filter.isProfane(postBody)) {
+          const profanityWord = filter.clean(postBody);
+          alert(` ${profanityWord} Abusive word detected ⚠`);
+          toast.dark("Please don't use any abusive words")
+          setPostBody("");
+          return;
+        }
         
         // hate ful speech detection
         const toxicityScore = await postAnalyzer(postBody);
@@ -65,14 +74,7 @@ const AddPost = () => {
           return
         }
 
-        //abusiv words detection
-        if (filter.isProfane(postBody)) {
-          const profanityWord = filter.clean(postBody);
-          alert(` ${profanityWord} Abusive word detected ⚠`);
-          toast.dark("Please don't use any abusive words")
-          setPostBody("");
-          return;
-        }
+        
         dispatch(
           addPost(
             {

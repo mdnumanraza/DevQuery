@@ -79,8 +79,8 @@ const Notifications = ({ navigate}) => {
         const latestNotification = data[n];
         addNotifLocal(latestNotification)
         showNotification(latestNotification.postBody);
-        toast.dark(`New ${latestNotification.notifType} by ` + latestNotification.userPosted + ' \n - ' + latestNotification.postBody+'...');
-        console.log('New Post:', data);
+        toast.dark(`New Update by ` + latestNotification.userPosted + ' \n - ' + latestNotification.postBody+'...');
+        // console.log('New Post:', data);
       }
       if (initialLoad) {
         initialLoad = false;
