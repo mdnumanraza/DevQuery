@@ -27,7 +27,8 @@ const AskQuestion = () => {
   const handleGetNotifs = async (userPosted, postBody) => {
     try {
       const id = Math.random() * Math.floor(Math.random()*1000);
-      const notificationData = {userPosted,postBody,id}
+      const notifType = 'question'
+      const notificationData = {userPosted,postBody,id,notifType}
       // Save data to Firebase Realtime Database
       const notificationsRef = firebase.database().ref('notifications');
       await notificationsRef.push(notificationData);
@@ -56,7 +57,7 @@ const AskQuestion = () => {
 
         const notifBody = questionTitle.substring(0,50);
         handleGetNotifs(User.result.name,notifBody)
-        
+
         dispatch(
           askQuestion(
             {
@@ -69,7 +70,7 @@ const AskQuestion = () => {
               userPosted: User.result.name,
               userPic: User.result.pic,
             },
-            navigate
+            navigate('/')
           )
         );
       } else alert("Please enter all the fields");

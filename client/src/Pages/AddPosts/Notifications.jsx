@@ -22,7 +22,7 @@ const customStyles = {
   Modal.setAppElement('#root');
 
 
-const Notifications = ({ navigate }) => {
+const Notifications = ({ navigate}) => {
 
   //modal----------------------------------
     const [modalIsOpen, setIsOpen] = React.useState(false);
@@ -79,7 +79,7 @@ const Notifications = ({ navigate }) => {
         const latestNotification = data[n];
         addNotifLocal(latestNotification)
         showNotification(latestNotification.postBody);
-        toast.dark('New post by ' + latestNotification.userPosted + ' \n - ' + latestNotification.postBody+'...');
+        toast.dark(`New ${latestNotification.notifType} by ` + latestNotification.userPosted + ' \n - ' + latestNotification.postBody+'...');
         console.log('New Post:', data);
       }
       if (initialLoad) {

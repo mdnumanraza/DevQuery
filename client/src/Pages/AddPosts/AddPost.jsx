@@ -28,7 +28,8 @@ const AddPost = () => {
   const handleGetNotifs = async (userPosted, postBody) => {
     try {
       const id = Math.random() * Math.floor(Math.random()*1000);
-      const notificationData = {userPosted,postBody,id}
+      const notifType = 'post'
+      const notificationData = {userPosted,postBody,id,notifType}
       // Save data to Firebase Realtime Database
       const notificationsRef = firebase.database().ref('notifications');
       await notificationsRef.push(notificationData);
