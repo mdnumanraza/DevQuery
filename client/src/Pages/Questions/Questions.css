@@ -185,4 +185,7 @@
     align-items: center;
     flex-wrap: nowrap;
 }
+  .question-details-container{
+      margin-top: 70px;
+  }
 }
