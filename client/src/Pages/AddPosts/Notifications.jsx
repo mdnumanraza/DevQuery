@@ -73,13 +73,15 @@ const Notifications = ({ navigate}) => {
     let initialLoad = true;
   
     const handleData = (snapshot) => {
-      if (snapshot.val()  && !initialLoad ) {
+      if (snapshot.val()  ) {
         const data = Object.values(snapshot.val());
         const n = data.length-1;
         const latestNotification = data[n];
         addNotifLocal(latestNotification)
-        showNotification(latestNotification.postBody);
-        toast.dark(`New Update by ` + latestNotification.userPosted + ' \n - ' + latestNotification.postBody+'...');
+        if(!initialLoad){
+          showNotification(latestNotification.postBody);
+          toast.dark(`New Update by ` + latestNotification.userPosted + ' \n - ' + latestNotification.postBody+'...');
+        }
         // console.log('New Post:', data);
       }
       if (initialLoad) {

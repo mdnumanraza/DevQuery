@@ -160,6 +160,7 @@
 @media screen and (max-width: 420px) {
   .question-details-page {
     width: calc(100% - 25px);
+    margin-top: 10px;
   }
   .post-ans-container{
     width: 100vw;
