@@ -22,9 +22,9 @@ const Control = ({
   buffer
 }) => {
 
-
+  // 
   return (
-    <div className="control_Container" ref ={controlRef} style={{display:`${cntrlVisibility}`, transitionDelay:"3s", transitionProperty:"display"}}>
+    <div className="control_Container" ref ={controlRef} style={{display:`${cntrlVisibility}`, transitionDelay:"3s", transitionProperty:"display", zIndex:'10000'}}>
     {!buffer && 
      
       <div className="mid__container" >
@@ -44,7 +44,7 @@ const Control = ({
           <FastForward fontSize="medium" onClick={onForward} />
         </div>
       </div>
-    }
+    } 
      
     </div>
   );

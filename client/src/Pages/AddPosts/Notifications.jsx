@@ -53,9 +53,11 @@ const Notifications = ({ navigate}) => {
   },[])
 
   const showNotification = (nBody) => {
-    if (permission !== "granted") {
+    if (permission === "denied") {
+      console.log("not granted")
       requestPermission();
     } else if (permission === "granted") {
+      console.log("notification should show");
       const notification = new Notification('Hey, check out the new post!', {
         body: `${nBody}`,
         icon: icon,
@@ -73,15 +75,15 @@ const Notifications = ({ navigate}) => {
     let initialLoad = true;
   
     const handleData = (snapshot) => {
-      if (snapshot.val()  ) {
+      if (snapshot.val() && !initialLoad ) {
         const data = Object.values(snapshot.val());
         const n = data.length-1;
         const latestNotification = data[n];
         addNotifLocal(latestNotification)
-        if(!initialLoad){
+        
           showNotification(latestNotification.postBody);
           toast.dark(`New Update by ` + latestNotification.userPosted + ' \n - ' + latestNotification.postBody+'...');
-        }
+      
         // console.log('New Post:', data);
       }
       if (initialLoad) {

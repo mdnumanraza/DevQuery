@@ -1,76 +1,88 @@
-import "./Controls.css";
-import ReactPlayer from "react-player";
+import React, { useRef, useState } from "react";
 import { Container } from "@mui/material";
 import Control from "./Control";
-import { useState, useRef } from "react";
-import loadingSvg from "../../assets/loadingSvg.svg"
+import loadingSvg from "../../assets/loadingSvg.svg";
+import "./Controls.css";
 
-
-function VideoPlayer({vidUrl}) {
+function VideoPlayer({ vidUrl }) {
   const videoPlayerRef = useRef(null);
   const controlRef = useRef(null);
 
-const [cntrlVisibility, setCntrlVisibility] = useState("none")
-
+  const [cntrlVisibility, setCntrlVisibility] = useState("none");
 
   const [videoState, setVideoState] = useState({
     playing: false,
     buffer: true,
   });
 
-
-  const { playing, buffer} = videoState;
-
+  const { playing, buffer } = videoState;
 
   const playPauseHandler = () => {
-    setVideoState({ ...videoState, playing: !videoState.playing });
+    const video = videoPlayerRef.current;
+  
+    if (video.paused || video.ended) {
+      video.play();
+    } else {
+      video.pause();
+    }
+  
+    setVideoState((prevState) => ({ ...prevState, playing: !prevState.playing }));
   };
 
   const rewindHandler = () => {
-    videoPlayerRef.current.seekTo(videoPlayerRef.current.getCurrentTime() - 10);
+    videoPlayerRef.current.currentTime -= 10;
   };
 
-  const handleFastFoward = () => {
-    videoPlayerRef.current.seekTo(videoPlayerRef.current.getCurrentTime() + 10);
+  const handleFastForward = () => {
+    videoPlayerRef.current.currentTime += 10;
   };
 
   const bufferStartHandler = () => {
-    // console.log("Bufering...");
-    setVideoState({ ...videoState, buffer: true });
+    setVideoState((prevState) => ({ ...prevState, buffer: true }));
   };
 
   const bufferEndHandler = () => {
-    // console.log("buffering stoped..");
-    setVideoState({ ...videoState, buffer: false });
+    setVideoState((prevState) => ({ ...prevState, buffer: false }));
   };
+// if(cntrlVisibility===""){
+//   setTimeout(()=>{
+//     setCntrlVisibility("none")
+//   },3000)
 
+// }
 
   return (
     <div className="video_container">
-     
       <Container maxWidth="md" justify="center">
-        <div className="player__wrapper" 
-        onMouseOver={()=>{setCntrlVisibility(" ")}} 
-        onClick={()=>{setCntrlVisibility(" ")}} 
-        onMouseOut={()=>setCntrlVisibility("none")}
+        <div
+          className="player__wrapper"
+          onMouseOver={() => setCntrlVisibility("")}
+          onClick={() => setCntrlVisibility("")}
+         
+          onMouseOut={() => setCntrlVisibility("none")}
         >
-          <ReactPlayer
+          <video
             controls
             ref={videoPlayerRef}
             className="player"
-            url={vidUrl}
             width="100%"
             height="100%"
-            playing={playing}
-            onBuffer={bufferStartHandler}
-            onBufferEnd={bufferEndHandler}
-          />
+            onPlay={() => {setVideoState({ ...videoState, playing: true }) }}
+            onPause={() => {setVideoState({ ...videoState, playing: false })}}
+            onTimeUpdate={() => setVideoState({ ...videoState, buffer: false })}
+            onWaiting={bufferStartHandler}
+            onPlaying={bufferEndHandler}
+          >
+            <source src={vidUrl} type="video/mp4" />
+            Your browser does not support the video tag.
+          </video>
 
-          {buffer && 
-          <div className="loading">
-            <img width="60px" src={loadingSvg} alt="load" />
-            <p>Loading...</p> 
-          </div>}
+          {buffer && (
+            <div className="loading">
+              <img width="60px" src={loadingSvg} alt="load" />
+              <p>Loading...</p>
+            </div>
+          )}
 
           <Control
             cntrlVisibility={cntrlVisibility}
@@ -78,7 +90,7 @@ const [cntrlVisibility, setCntrlVisibility] = useState("none")
             onPlayPause={playPauseHandler}
             playing={playing}
             onRewind={rewindHandler}
-            onForward={handleFastFoward}
+            onForward={handleFastForward}
             buffer={buffer}
           />
         </div>
