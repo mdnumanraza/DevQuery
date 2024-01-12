@@ -9,8 +9,6 @@ import answerRoutes from './routes/Answers.js';
 import PostRoutes from './routes/Posts.js';
 import CommentRoutes from './routes/Comments.js';
 import connectDB from './connectMongoDb.js';
-// import Pusher from 'pusher'
-// import Notification from "./models/notifications.js";
 
 
 dotenv.config();
@@ -21,7 +19,7 @@ app.use(express.urlencoded({ limit: '30mb', extended: true }));
 
 app.use(
     cors({
-      origin: "*" ,
+      origin: ["https://numan-stackoverflow.vercel.app/","http://localhost:3000"] ,
       methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
       credentials: true,
     })
