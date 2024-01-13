@@ -53,13 +53,15 @@ const Notifications = ({ navigate}) => {
   },[])
 
   const showNotification = (nBody) => {
+    console.log("Attempting to show notification");
+  
     if (permission === "denied") {
       console.log("Notification permission denied");
       requestPermission();
-     
     } else if (permission === "granted") {
       console.log("Notification permission granted");
       try {
+        console.log("Creating notification");
         const notification = new Notification('Hey, check out the new post!', {
           body: `${nBody}`,
           icon: icon,
@@ -69,13 +71,12 @@ const Notifications = ({ navigate}) => {
           navigate('/Posts');
         };
         console.log("Notification shown successfully");
-        
       } catch (error) {
         console.error("Error showing notification:", error);
-        
       }
     }
   };
+  
   
 
  
