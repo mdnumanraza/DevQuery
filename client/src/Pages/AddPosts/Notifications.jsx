@@ -56,6 +56,8 @@ const Notifications = ({ navigate}) => {
     if (permission === "denied") {
       console.log("not granted")
       requestPermission();
+      return false;
+
     } else if (permission === "granted") {
       console.log("notification should show");
       const notification = new Notification('Hey, check out the new post!', {
@@ -66,6 +68,7 @@ const Notifications = ({ navigate}) => {
       notification.onclick = () => {
         navigate('/Posts');
       };
+      return true
     }
   };
 
@@ -74,15 +77,21 @@ const Notifications = ({ navigate}) => {
     const notificationsRef = firebase.database().ref('notifications');
     let initialLoad = true;
   
-    const handleData = (snapshot) => {
+    const handleData = async(snapshot) => {
       if (snapshot.val() && !initialLoad ) {
         const data = Object.values(snapshot.val());
         const n = data.length-1;
         const latestNotification = data[n];
-        addNotifLocal(latestNotification)
-        
-          showNotification(latestNotification.postBody);
-          toast.dark(`New Update by ` + latestNotification.userPosted + ' \n - ' + latestNotification.postBody+'...');
+        await addNotifLocal(latestNotification)
+        const notified = await showNotification(latestNotification.postBody);
+
+        if(notified){
+          console.log("👍")
+        }else{
+          console.log("👎")
+        }
+
+        toast.dark(`New Update by ` + latestNotification.userPosted + ' \n - ' + latestNotification.postBody+'...');
       
         // console.log('New Post:', data);
       }
