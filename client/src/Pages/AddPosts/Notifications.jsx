@@ -86,11 +86,6 @@ const Notifications = ({ navigate}) => {
       }
     // }
   };
-  
-  
-
- 
-
 
   useEffect(() => {
     // Set up Firebase Realtime Database listener
@@ -98,16 +93,18 @@ const Notifications = ({ navigate}) => {
     let initialLoad = true;
   
     const handleData = async(snapshot) => {
-      if (snapshot.val() && !initialLoad ) {
+      if (snapshot.val() ) {
         const data = Object.values(snapshot.val());
         const n = data.length-1;
         const latestNotification = data[n];
+        console.log(latestNotification)
         addNotifLocal(latestNotification)
-        showNotification(latestNotification.postBody);
 
-        toast.dark(`New Update by ` + latestNotification.userPosted + ' \n - ' + latestNotification.postBody+'...');
-      
-        // console.log('New Post:', data);
+        if(!initialLoad ){
+          showNotification(latestNotification.postBody);
+          toast.dark(`New Update: `+ latestNotification.postBody+'...');
+        }
+
       }
       if (initialLoad) {
         initialLoad = false;
@@ -129,13 +126,18 @@ const Notifications = ({ navigate}) => {
   setNotifications(existingNotifs);
  },[])
 
-  const addNotifLocal = (notif)=>{
+ 
+ const addNotifLocal = (notif) => {
     const existingNotifs = JSON.parse(localStorage.getItem('Notifications')) || [];
-    const newNotif = [...existingNotifs, notif];
-    localStorage.setItem('Notifications', JSON.stringify(newNotif));
-    setNotifications(newNotif);
-    setNotificationCount(newNotif.length)
-  }
+    const isDuplicate = existingNotifs.some((existingNotif) => existingNotif.id === notif.id);
+    if (!isDuplicate) {
+      const newNotif = [...existingNotifs, notif];
+      localStorage.setItem('Notifications', JSON.stringify(newNotif));
+      setNotifications(newNotif);
+      setNotificationCount(newNotif.length);
+    } 
+};
+
 
   const deleteNotifById = (id) => {
     const existingNotifs = JSON.parse(localStorage.getItem('Notifications')) || [];

@@ -34,6 +34,7 @@ function App() {
       setSlideIn((state) => !state);
     }
   };
+  
 
   return (
     <div className="App">
