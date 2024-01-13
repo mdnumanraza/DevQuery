@@ -54,23 +54,32 @@ const Notifications = ({ navigate}) => {
 
   const showNotification = (nBody) => {
     if (permission === "denied") {
-      console.log("not granted")
+      console.log("Notification permission denied");
       requestPermission();
-      return false;
-
+     
     } else if (permission === "granted") {
-      console.log("notification should show");
-      const notification = new Notification('Hey, check out the new post!', {
-        body: `${nBody}`,
-        icon: icon,
-      });
-
-      notification.onclick = () => {
-        navigate('/Posts');
-      };
-      return true
+      console.log("Notification permission granted");
+      try {
+        const notification = new Notification('Hey, check out the new post!', {
+          body: `${nBody}`,
+          icon: icon,
+        });
+  
+        notification.onclick = () => {
+          navigate('/Posts');
+        };
+        console.log("Notification shown successfully");
+        
+      } catch (error) {
+        console.error("Error showing notification:", error);
+        
+      }
     }
   };
+  
+
+ 
+
 
   useEffect(() => {
     // Set up Firebase Realtime Database listener
@@ -82,14 +91,8 @@ const Notifications = ({ navigate}) => {
         const data = Object.values(snapshot.val());
         const n = data.length-1;
         const latestNotification = data[n];
-        await addNotifLocal(latestNotification)
-        const notified = await showNotification(latestNotification.postBody);
-
-        if(notified){
-          console.log("👍")
-        }else{
-          console.log("👎")
-        }
+        addNotifLocal(latestNotification)
+        showNotification(latestNotification.postBody);
 
         toast.dark(`New Update by ` + latestNotification.userPosted + ' \n - ' + latestNotification.postBody+'...');
       
