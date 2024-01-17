@@ -12,7 +12,7 @@ function VideoPlayer({ vidUrl }) {
 
   const [videoState, setVideoState] = useState({
     playing: false,
-    buffer: true,
+    buffer: false,
   });
 
   const { playing, buffer } = videoState;

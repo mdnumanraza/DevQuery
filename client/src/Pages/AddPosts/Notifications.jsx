@@ -112,8 +112,7 @@ const Notifications = ({ navigate}) => {
     };
   
     notificationsRef.on('value', handleData);
-  
-
+    
     return () => {
       notificationsRef.off('value', handleData);
     };
