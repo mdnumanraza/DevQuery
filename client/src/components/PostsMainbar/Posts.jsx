@@ -126,7 +126,14 @@ const Posts = ({ post }) => {
           <div className="top">
             <div className="userDeatils">
               <div className="profileImg">
-                <img src={post.userPic || dUser} alt="user" className="cover" />
+                
+                <Link
+                   to={`/Users/${user?.result?._id}`}
+                   style={{ color: "white", textDecoration: "none" }}
+                 >
+                    <img src={post.userPic || dUser} alt="user" className="cover" />
+              </Link>
+                
               </div>
               <h3 className="user-posted">{post.userPosted}</h3>
             </div>
