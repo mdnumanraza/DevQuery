@@ -77,4 +77,22 @@ export const likePost = async (req, res) => {
   }
 };
 
+export const updateUserPics = async (req, res) => {
+  const { userId, newPic } = req.body;
+
+  try {
+    // Update all posts with the matching userId
+    const result = await Post.updateMany({ userId }, { $set: { userPic: newPic } });
+
+    if (result.nModified === 0) {
+      return res.status(404).json("No posts found for the given userId");
+    }
+
+    res.status(200).json(`${result.nModified} posts updated successfully`);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json("Internal Server Error");
+  }
+};
+
 

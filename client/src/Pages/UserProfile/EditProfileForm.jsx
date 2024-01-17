@@ -8,6 +8,9 @@ import { getStorage, ref, deleteObject } from "firebase/storage";
 
 import { loadicon } from "../../assets/loadicon";
 import AvatarsBox from "../../components/AvatarsBox";
+import axios from 'axios';
+import { apiurl } from "../../api";
+import { fetchAllPosts } from "../../actions/post";
 
 const EditProfileForm = ({ currentUser, setSwitch }) => {
 
@@ -67,9 +70,24 @@ const EditProfileForm = ({ currentUser, setSwitch }) => {
    
   };
 
+  const updateProfilePic = async (userId , newPic) => {
+    try {
+      const response = await axios.put(apiurl + '/posts/updatePic', {userId, newPic });
+      
+      if (response.status === 200) {
+        console.log('Profile picture updated successfully' , response);
+        dispatch(fetchAllPosts());
+      }
+    } catch (error) {
+      console.error('Error updating profile picture:', error );
+    }
+  };
+  
+
   const handleSubmit = (e) => {
     e.preventDefault();
       dispatch(updateProfile(currentUser?.result?._id, { name, about, tags,pic }));
+      updateProfilePic(currentUser?.result?._id , pic)
       const storedData = localStorage.getItem('Profile');
       let updatedData;
       if (storedData) {
