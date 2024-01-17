@@ -128,12 +128,12 @@ const Posts = ({ post }) => {
             <div className="userDeatils">
               <div className="profileImg">
                 
-            {/*  <Link
-                   to={`/Users/${user?.result?._id}`}
+             <Link
+                   to={`/Users/${post?.userId}`}
                    style={{ color: "white", textDecoration: "none" }}
                  >
-              </Link> */}
                     <img src={post.userPic || dUser} alt="user" className="cover" />
+              </Link>
                 
               </div>
               <h3 className="user-posted">{post.userPosted}</h3>
