@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import moment from "moment";
 import "./Posts.css";
+import { Link } from "react-router-dom";
 
 import likefilled from '../../assets/likefilled.png'
 import likeoutline from '../../assets/likeoutline.png'
