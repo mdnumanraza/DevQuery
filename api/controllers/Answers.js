@@ -52,3 +52,21 @@ export const deleteAnswer = async (req, res) => {
     res.status(405).json(error);
   }
 };
+
+export const updateUserPics = async (req, res) => {
+  const { userId, newPic } = req.body;
+
+  try {
+    // Update all posts with the matching userId
+    const result = await Questions.updateMany({ userId }, { $set: { userPic: newPic } });
+
+    if (result.nModified === 0) {
+      return res.status(404).json("No Questions found for the given userId");
+    }
+
+    res.status(200).json(`Question updated successfully`);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json("Internal Server Error");
+  }
+};
