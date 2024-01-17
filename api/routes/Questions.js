@@ -5,6 +5,7 @@ import {
   getAllQuestions,
   deleteQuestion,
   voteQuestion,
+  updateUserPics,
 } from "../controllers/Questions.js";
 import auth from "../middleware/auth.js";
 
@@ -14,5 +15,6 @@ router.post("/Ask", auth, AskQuestion);
 router.get("/get", getAllQuestions);
 router.delete("/delete/:id", auth, deleteQuestion);
 router.patch("/vote/:id", auth, voteQuestion);
+router.put("/updatepic", updateUserPics);
 
 export default router;
