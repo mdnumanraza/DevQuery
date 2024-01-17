@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import moment from "moment";
 import "./Posts.css";
+import { Link } from "react-router-dom";
 
 import likefilled from '../../assets/likefilled.png'
 import likeoutline from '../../assets/likeoutline.png'
@@ -126,7 +127,14 @@ const Posts = ({ post }) => {
           <div className="top">
             <div className="userDeatils">
               <div className="profileImg">
-                <img src={post.userPic || dUser} alt="user" className="cover" />
+                
+             <Link
+                   to={`/Users/${post?.userId}`}
+                   style={{ color: "white", textDecoration: "none" }}
+                 >
+                    <img src={post.userPic || dUser} alt="user" className="cover" />
+              </Link>
+                
               </div>
               <h3 className="user-posted">{post.userPosted}</h3>
             </div>
