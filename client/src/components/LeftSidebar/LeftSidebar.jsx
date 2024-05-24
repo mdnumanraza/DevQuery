@@ -47,31 +47,11 @@ const LeftSidebar = ({ slideIn, handleSlideIn }) => {
               activeclassname="active"
             >
               <img src={publicicon} alt="public" width="30px" />
-              <p style={{ paddingLeft: "10px" }}> Public Space </p>
+              <p style={{ paddingLeft: "10px" }}> Community </p>
             </NavLink>
           </button>
 
-          <button onClick={() => handleSlideIn()} className="nav-btn">
-            <NavLink
-              to="/Tags"
-              className="side-nav-links"
-              activeclassname="active"
-              style={{ paddingLeft: "40px" }}
-            >
-              <p>Tags</p>
-            </NavLink>
-          </button>
-          
-          <button onClick={() => handleSlideIn()} className="nav-btn">
-            <NavLink
-              to="/Users"
-              className="side-nav-links"
-              activeclassname="active"
-              style={{ paddingLeft: "40px" }}
-            >
-              <p>Users</p>
-            </NavLink>
-          </button>
+         
         </div>
       </nav>
     </div>

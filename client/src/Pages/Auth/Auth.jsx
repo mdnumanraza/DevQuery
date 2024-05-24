@@ -5,6 +5,7 @@ import "./Auth.css";
 import icon from "../../assets/icon.png";
 import AboutAuth from "./AboutAuth";
 import { signup, login } from "../../actions/auth";
+import logo from '../../assets/logo.png'
 
 //firebase imports
 import firebase from "firebase/compat/app";
@@ -95,11 +96,11 @@ const Auth = () => {
     <section className="auth-section">
       {isSignup && <AboutAuth />}
       <div className="auth-container-2">
-        <img src={icon} alt="stack overflow" className="login-logo" />
+        <img src={logo} alt="DEv Query" width={'150px'} className="login-logo" />
         <form onSubmit={handleSubmit}>
           {isSignup && (
             <label htmlFor="name">
-              <h4>Display Name</h4>
+              <h4>Name</h4>
               <input
                 type="text"
                 id="name"

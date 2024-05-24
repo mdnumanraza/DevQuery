@@ -42,3 +42,18 @@ body{
 .ReactModal__Content{
   margin-top: 40px;
 }
+
+.display-question-container{
+  background-color: #e2ebfd !important;
+    border-bottom: solid 1px #eac0fa !important;
+}
+
+.question-title-link{
+  color: black !important;
+  font-weight: 600;
+}
+
+.display-tags{
+  padding: 2px;
+  border-radius: 4px;
+}

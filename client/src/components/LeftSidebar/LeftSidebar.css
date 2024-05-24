@@ -49,8 +49,9 @@
 .active {
   font-weight: bolder;
   color: black;
-  background-color: rgb(225, 225, 225);
-  border-right: solid 3px #ef8236;
+  background-color: rgb(228, 220, 248);
+  border-radius: 5px;
+  /* border-right: solid 3px rgb(70, 12, 185); */
 }
 
 @media screen and (max-width: 760px) {

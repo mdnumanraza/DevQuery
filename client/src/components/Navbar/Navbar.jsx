@@ -4,7 +4,6 @@ import { useSelector, useDispatch } from "react-redux";
 import decode from "jwt-decode";
 
 import logo from "../../assets/logo.png";
-import search from "../../assets/search-solid.svg";
 import Avatar from "../../components/Avatar/Avatar";
 import "./Navbar.css";
 import { setCurrentUser } from "../../actions/currentUser";
@@ -41,7 +40,7 @@ const Navbar = ({ handleSlideIn }) => {
         </button>
         <div className="navbar-1">
           <Link to="/" className="nav-item nav-logo">
-            <img src={logo} alt="logo" />
+            <img src={logo} width={'80px'} alt="logo" />
           </Link>
           {/* <Link to="/" className="nav-item nav-btn res-nav abt">
             About
@@ -50,12 +49,9 @@ const Navbar = ({ handleSlideIn }) => {
             Products
           </Link> */}
           <Link to="/Posts" className="nav-item nav-btn res-nav">
-            Public Space
+            Community
           </Link>
-          <form>
-            <input type="text" placeholder="Search..." />
-            <img src={search} alt="search" width="18" className="search-icon" />
-          </form>
+         
         </div>
         <div className="navbar-2">
           {User === null ? (

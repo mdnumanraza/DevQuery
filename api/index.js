@@ -21,12 +21,6 @@ app.use(
     cors()
 );
 
-// {
-//     origin: ["https://numan-stackoverflow.vercel.app/","http://localhost:3000"] ,
-//     methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
-//     credentials: true,
-//   }
-
 
 app.use("/user", userRoutes);
 app.use("/questions", questionRoutes);
@@ -36,7 +30,7 @@ app.use("/comment", CommentRoutes);
 
 
 app.get('/', (req, res) => {
-    res.send("This is a stack overflow clone API, <h1> go to <i> /questions/get </i> to get all questions </h1>")
+    res.send("This is a DEV Query API, <h1> go to <i> /questions/get </i> to get all questions </h1>")
 });
 
 const PORT = process.env.PORT || 5000;
@@ -44,6 +38,4 @@ const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => {
     console.log(`Server running on port ${PORT}`);
 });
-// httpServer.listen(PORT, () => {
-//   console.log(`✅ Application running on port: ${PORT}`);
-// })
+
