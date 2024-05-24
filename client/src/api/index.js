@@ -2,7 +2,7 @@ import axios from "axios";
 
 const API = axios.create({
   // baseURL: "http://localhost:5000/",
-  baseURL: "https://stack-overflow-clone-tau.vercel.app/",
+  baseURL: "https://numan-devquery-api.vercel.app/",
 });
 
 API.interceptors.request.use((req) => {
@@ -15,7 +15,7 @@ API.interceptors.request.use((req) => {
 });
 
 // export const apiurl = "http://localhost:5000"
-export const apiurl =  "https://stack-overflow-clone-tau.vercel.app"
+export const apiurl =  "https://numan-devquery-api.vercel.app/"
 
 export const logIn = (authData) => API.post("/user/login", authData);
 export const signUp = (authData) => API.post("/user/signup", authData);

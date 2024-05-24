@@ -4,7 +4,7 @@ DevQuey is a full-stack web application built with the MERN stack (MongoDB, Expr
 
 ## live preview
 
-- [link](https://numan-stackoverflow.vercel.app/)
+- [link](https://numan-devquery-api.vercel.app/)
 
 ## Features
 
