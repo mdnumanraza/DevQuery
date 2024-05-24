@@ -1,10 +1,10 @@
-# DevQuey
+# DevQuery
 
 DevQuey is a full-stack web application built with the MERN stack (MongoDB, Express.js, React.js, Node.js). It provides a platform for developers to ask questions, share knowledge, and it also has social media section to share your knowledge in the community.
 
 ## live preview
 
-- [link](https://numan-devquery-api.vercel.app/)
+- [link](https://numan-devquery.vercel.app/)
 
 ## Features
 
