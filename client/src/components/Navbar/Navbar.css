@@ -47,7 +47,7 @@
 }
 
 .navbar-2  a{
-  background: #7077A1;
+  /* background: #7077A1; */
 }
 
 .nav-logo {
@@ -100,6 +100,7 @@
   padding: 7px 13px;
   border: solid 1px #2D3250;
   border-radius: 3px;
+  background: rgba(151, 0, 0, 0.615);
   cursor: pointer;
 }
 
@@ -107,6 +108,8 @@
   background-color: #d3e4eb;
   color: #2D3250;
 }
+
+
 
 @media screen and (max-width: 1120px) {
   .navbar .navbar-1 form {
