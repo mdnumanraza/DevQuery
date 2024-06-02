@@ -125,7 +125,7 @@ const AddPost = () => {
                 value={postBody}
                 onChange={(e) => setPostBody(e.target.value)}
                 placeholder="What's on your mind?"
-                className=""
+                className="txtarea"
               />
             </label>
             <div className="add-files">

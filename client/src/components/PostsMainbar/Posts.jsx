@@ -122,7 +122,7 @@ const Posts = ({ post }) => {
   return (
     <div className="posts-box">
       <ToastContainer/>
-      <div className="display-question-container">
+      
         <div className="card">
           <div className="top">
             <div className="userDeatils">
@@ -235,7 +235,7 @@ const Posts = ({ post }) => {
             </p>
           </div>
         </div>
-      </div>
+      
       {commDiv && <DisplayComments post={post} />}
     </div>
   );

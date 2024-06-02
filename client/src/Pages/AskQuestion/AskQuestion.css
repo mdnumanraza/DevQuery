@@ -1,6 +1,6 @@
 .ask-question {
   min-height: 80vh;
-  background-color: #f1f2f3;
+  background-color: #2D3250;
 }
 
 .ask-ques-container {
@@ -15,7 +15,8 @@
 
 .ask-ques-container form .ask-form-container {
   padding: 20px;
-  background-color: white;
+  background-color: #424769;
+  /* background-color: rgba(36, 31, 50, 0.614); */
   border-radius: 3px;
   box-shadow: 0 10px 25px rgb(0 0 0 / 5%), 0 20px 48px rgb(0 0 0 / 5%),
     0 1px 4px rgb(0 0 0 / 10%);
@@ -171,7 +172,7 @@ button{
   margin: 0;
   position: relative;
   text-align: center;
-  background-color: #ccc;
+  background-color: #434242;
   width: 35px;
   display: flex;
   left: 90%;

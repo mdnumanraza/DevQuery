@@ -2,10 +2,15 @@
     position: relative;
     width: 100%;
     min-height: 400px;
-    background: #fff;
+    background: #7077A1;
+    color: white;
     box-shadow: 15px 15px 60px rgba(0, 0, 0, .15);
     /* padding: 20px; */
     border-radius: 10px;
+}
+
+.display-question-container{
+    background: none;
 }
 
 .posts-box{
@@ -16,7 +21,10 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    background-color: #e6f5f5;
+    background-color: #424769;
+    border-top-right-radius: 10px;
+    border-top-left-radius: 10px;
+    color: white;
     padding: 10px;
 }
 .card .top .userDeatils{
@@ -37,7 +45,7 @@
 }
 .card .top .userDeatils h3{
     font-size: 18px;
-    color: #4d4d4f;
+    color: #ffff;
     font-weight: 700;
     line-height: 1rem;
     cursor: pointer;
@@ -59,6 +67,7 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
+    color: white;
     padding: 10px;
     gap: 4px;
 }
@@ -76,12 +85,17 @@
 .likes{
     margin-top: 5px;
     font-size: 1em;
-    color: #4d4d4f;
+    color: #ffff;
 }
+
+.likes img{
+    filter: invert(80%);
+}
+
 .message{
     font-weight: 400;
     margin-top: 5px;
-    color: #777;
+    color:#ffff;
     line-height: 1.5em;
     padding-left: 10px;
 }
@@ -95,7 +109,7 @@
 .comments{
     margin-top: 10px;
     align-items: center;
-    color: #999;
+    color: #f7dd9f;
     padding-left: 10px;
 }
 .addComments{
@@ -103,6 +117,7 @@
     align-items: center;
     margin-top: 10px;
     padding-left: 10px;
+    
 }
 .addComments .userImg{
     position: relative;
@@ -119,6 +134,9 @@
     font-weight: 400;
     font-size: 18px;
     color: #262626;
+    background: #2D3250;
+    border-radius: 10px;
+    padding: 0 5px;
 }
 .addComments .text::placeholder{
     color: #777;
@@ -126,7 +144,7 @@
 .postTime{
     margin-top: 10px;
     font-weight: 500;
-    color: #777;
+    color: #fbe8cb;
     padding-left: 10px;
 }
 

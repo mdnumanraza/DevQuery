@@ -69,8 +69,22 @@
   background: rgba(167, 166, 166, 0.842);
 }
 
-#ask-ques-body:focus{
+#ask-ques-body textarea{
   outline: none;
+}
+
+.txtarea{
+  background: #2D3250;
+  padding: 10px;
+  border-radius: 8px;
+  margin: 10px 2px;
+  color: white;
+  border: 2px solid rgba(243, 188, 86, 0.584) !important;
+}
+
+.txtarea::placeholder{
+  color: rgba(245, 248, 54, 0.595);
+  font-weight: 500;
 }
 
 
