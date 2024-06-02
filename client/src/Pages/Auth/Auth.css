@@ -1,7 +1,7 @@
 .auth-section {
   min-height: 100vh;
   margin: 0% auto;
-  background-color: #f1f2f3;
+  background-color: #2D3250;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -27,7 +27,7 @@
 .auth-container-2 form {
   width: 100%;
   padding: 20px;
-  background-color: white;
+  background-color: #424769;
   border-radius: 10px;
   display: flex;
   flex-direction: column;
@@ -44,7 +44,14 @@
   padding: 10px;
   width: calc(100% - 30px);
   border: solid 1px #0000003e;
+  border-radius: 7px;
   font-size: 13px;
+}
+
+.auth-container-2 form label input::placeholder{
+  color: #2d32508a;
+  font-weight: 500;
+  font-size: 1rem;
 }
 
 .auth-container-2 form label:nth-child(1) h4,
@@ -66,18 +73,20 @@
 .auth-btn {
   margin-top: 10px;
   padding: 10px 5px;
-  background-color: #009dff;
-  border: solid 1px #009dff;
+  background-color: #2D3250;
+  border: solid 1px #0000008c;
   color: white;
+  font-size:1.5rem;
   border-radius: 5px;
   cursor: pointer;
   transition: 0.2s;
   font-size: 13px;
-  font-weight: 500;
+  font-weight: 600;
 }
 
 .auth-btn:hover {
-  background-color: #018ce3;
+  background-color: #ffff;
+  color: #2D3250;
 }
 
 .handle-switch-btn {

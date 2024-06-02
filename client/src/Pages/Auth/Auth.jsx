@@ -105,6 +105,7 @@ const Auth = () => {
                 type="text"
                 id="name"
                 name="name"
+                placeholder="luffy"
                 value={name}
                 onChange={(e) => {
                   setName(e.target.value);
@@ -118,6 +119,7 @@ const Auth = () => {
               type="email"
               name="email"
               id="email"
+              placeholder="abc@xyz.com"
               value={email}
               onChange={(e) => {
                 setEmail(e.target.value);
@@ -137,6 +139,7 @@ const Auth = () => {
               type="password"
               name="password"
               id="password"
+              placeholder="*******"
               value={password}
               onChange={(e) => {
                 setPassword(e.target.value);
@@ -186,7 +189,7 @@ const Auth = () => {
                 <div className="picDiv">
                   <button
                     type="button"
-                    className="x-mark"
+                    className="x-mark "
                     onClick={
                       //  dp !== 'avatar' ?
                       () => handleDeleteImage(pic)
