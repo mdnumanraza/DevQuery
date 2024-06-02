@@ -35,7 +35,7 @@ const LeftSidebar = ({ slideIn, handleSlideIn }) => {
               className="side-nav-links"
               activeclassname="active"
             >
-              <img src={Globe} alt="Globe" />
+              <img src={Globe} style={{filter:'invert(100%)'}} alt="Globe" />
               <p style={{ paddingLeft: "10px" }}> Questions </p>
             </NavLink>
           </button>
@@ -46,7 +46,7 @@ const LeftSidebar = ({ slideIn, handleSlideIn }) => {
               className="side-nav-links"
               activeclassname="active"
             >
-              <img src={publicicon} alt="public" width="30px" />
+              <img src={publicicon} alt="public" style={{filter:'invert(100%)'}} width="30px" />
               <p style={{ paddingLeft: "10px" }}> Community </p>
             </NavLink>
           </button>

@@ -1,12 +1,14 @@
 .left-sidebar {
-  width: 164px;
+  width: 314px;
   box-shadow: 1px 1px 0 rgba(0, 0, 0, 0.2);
-  background-color: white;
+  background-color: #424769;
+  color: white;
   height: auto;
   min-height: 100vh;
   transition: box-shadow ease-in-out 0.1s, transform ease-in-out 0.1s;
   box-sizing: border-box;
   font-size: 13px;
+  padding: 5px 20px;
 }
 
 .nav-btn {
@@ -34,22 +36,23 @@
 
 .side-nav-links {
   text-decoration: none;
-  color: #3a3a3a;
+  margin: 0 10px;
+  color: #ffff;
   display: flex;
   align-items: center;
   justify-content: flex-start;
-  padding-left: 10px;
+  padding: 0 7px;
   transition: 0.2s;
 }
 
 .side-nav-links:hover {
-  color: black;
+  text-decoration: underline;
 }
 
 .active {
   font-weight: bolder;
-  color: black;
-  background-color: rgb(228, 220, 248);
+  
+  background-color: #7077A1;
   border-radius: 5px;
   /* border-right: solid 3px rgb(70, 12, 185); */
 }
